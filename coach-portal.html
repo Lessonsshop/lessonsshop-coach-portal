@@ -6,9 +6,9 @@
   <title>Lessons Shop - Coach Portal</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -39,13 +39,6 @@
       font-weight: 600;
     }
 
-    .logo-wrap img {
-      height: 42px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
-
     .top-nav-btn {
       border: 1px solid #d1d5db;
       background: #ffffff;
@@ -54,91 +47,12 @@
       padding: 8px 12px;
       font-size: 13px;
       font-weight: 700;
-      transition: all 0.15s ease;
-    }
-
-    .top-nav-btn:hover {
-      background: #f9fafb;
     }
 
     .top-nav-btn.active {
       border-color: #93c5fd;
       background: #eff6ff;
       color: #1d4ed8;
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .day-grid {
-      display: grid;
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .cal-dow {
-      font-size: 12px;
-      font-weight: 700;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      text-align: center;
-      padding: 6px 0;
-    }
-
-    .cal-day {
-      min-height: 118px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 8px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      text-align: left;
-      transition: all 0.15s ease;
-      background: #ffffff;
-    }
-
-    .cal-day:hover {
-      transform: translateY(-1px);
-    }
-
-    .cal-day.other-month {
-      opacity: 0.55;
-    }
-
-    .cal-day.available-day {
-      background: #ecfdf3;
-      border-color: #86efac;
-    }
-
-    .cal-day.unavailable-day {
-      background: #fef2f2;
-      border-color: #fca5a5;
-    }
-
-    .cal-day.today {
-      box-shadow: 0 0 0 2px #93c5fd inset;
-    }
-
-    .cal-day.selected {
-      outline: 2px solid #2563eb;
-      outline-offset: 0;
-    }
-
-    .cal-daynum {
-      font-size: 13px;
-      font-weight: 700;
     }
 
     .view-btn {
@@ -157,20 +71,73 @@
       color: #1d4ed8;
     }
 
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .cal-dow {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-align: center;
+      padding: 5px 0;
+      text-transform: uppercase;
+    }
+
+    .cal-day {
+      min-height: 78px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 6px;
+      background: #ffffff;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .cal-day:hover {
+      background: #f9fafb;
+    }
+
+    .cal-day.today {
+      box-shadow: 0 0 0 2px #93c5fd inset;
+    }
+
+    .cal-day.selected {
+      outline: 2px solid #2563eb;
+    }
+
+    .cal-day.available {
+      background: #ecfdf3;
+      border-color: #86efac;
+    }
+
+    .cal-day.unavailable {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    .cal-day.other-month {
+      opacity: 0.5;
+    }
+
     .timeline-row {
       border: 1px solid #e5e7eb;
       border-radius: 10px;
-      padding: 8px 10px;
+      padding: 9px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .timeline-open {
       background: #ecfdf3;
       border-color: #86efac;
       cursor: pointer;
+      width: 100%;
+      text-align: left;
     }
 
     .timeline-booked {
@@ -185,12 +152,12 @@
 
     .timeline-time {
       font-weight: 700;
-      min-width: 84px;
+      min-width: 76px;
       display: inline-block;
     }
 
-    .timeline-status {
-      font-size: 12px;
+    .status {
+      font-size: 11px;
       font-weight: 700;
       border-radius: 999px;
       padding: 2px 8px;
@@ -198,486 +165,317 @@
     }
 
     .status-open {
-      background: #dcfce7;
       color: #166534;
+      background: #dcfce7;
       border: 1px solid #86efac;
     }
 
     .status-booked {
-      background: #dbeafe;
       color: #1d4ed8;
+      background: #dbeafe;
       border: 1px solid #93c5fd;
     }
 
     .status-blocked {
-      background: #fee2e2;
       color: #991b1b;
+      background: #fee2e2;
       border: 1px solid #fca5a5;
     }
 
     .media-thumb {
       width: 100%;
       height: 150px;
-      border-radius: 8px;
       object-fit: cover;
+      border-radius: 8px;
       border: 1px solid #d1d5db;
       background: #f3f4f6;
     }
 
-    .hidden-section {
-      display: none;
-    }
-
     .progress-track {
       height: 8px;
-      border-radius: 999px;
       background: #e5e7eb;
+      border-radius: 999px;
       overflow: hidden;
     }
 
     .progress-bar {
       height: 100%;
-      border-radius: 999px;
       background: #2563eb;
-      transition: width 0.2s ease;
+      border-radius: 999px;
     }
 
-    @media (max-width: 640px) {
-      .cal-day {
-        min-height: 80px;
-        padding: 6px;
-      }
-
-      .cal-daynum {
-        font-size: 12px;
-      }
-
-      .calendar-grid,
-      .week-grid {
-        gap: 4px;
-      }
-
-      .timeline-time {
-        min-width: 72px;
-      }
+    .hidden-section {
+      display: none;
     }
   </style>
 </head>
 
 <body class="bg-gray-50 text-gray-900">
-  <div class="min-h-screen">
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <img
+          src="Lessonsshop updated logo.jpg"
+          alt="Lessons Shop Logo"
+          class="h-10 w-auto object-contain"
+        />
+        <h1 class="text-xl font-bold truncate">Coach Portal</h1>
+      </div>
 
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="logo-wrap">
-            <img
-              src="Lessonsshop%20updated%20logo.jpg"
-              alt="Lessons Shop Logo"
-            />
+      <div class="flex items-center gap-3">
+        <span class="pill">Coach</span>
+
+        <button
+          id="logoutBtn"
+          type="button"
+          class="text-sm text-blue-600 font-semibold"
+        >
+          <i class="fa-solid fa-right-from-bracket mr-1"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div id="appMessage" class="hidden mb-4 rounded-lg border px-4 py-3 text-sm"></div>
+
+    <nav class="flex flex-wrap items-center gap-2 mb-4">
+      <button id="navDashboardBtn" class="top-nav-btn active">
+        Dashboard
+      </button>
+
+      <button id="navCalendarBtn" class="top-nav-btn">
+        Calendar
+      </button>
+
+      <button id="navStudentsBtn" class="top-nav-btn">
+        Students
+      </button>
+
+      <button
+        id="openAddStudentBtn"
+        type="button"
+        class="w-8 h-8 rounded-full bg-blue-600 text-white text-lg font-bold leading-none"
+        title="Add Student"
+        aria-label="Add Student"
+      >
+        +
+      </button>
+    </nav>
+
+    <!-- Dashboard -->
+    <section id="dashboardSection">
+      <div class="card p-5 mb-4">
+        <h2 class="text-2xl font-bold mb-1">Dashboard</h2>
+        <p class="muted mb-4">
+          Overview of your students, lessons, and weekly hours.
+        </p>
+
+        <div
+          id="dashboardStats"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm"
+        ></div>
+      </div>
+
+      <div class="card p-5">
+        <h3 class="text-lg font-bold mb-1">Find a Student</h3>
+        <p class="text-xs muted mb-3">
+          Search by name, email, or phone.
+        </p>
+
+        <input
+          id="dashboardStudentSearch"
+          type="text"
+          placeholder="Search students..."
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-3"
+        />
+
+        <div id="dashboardStudentResults" class="space-y-2"></div>
+      </div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendarSection" class="hidden-section">
+      <div class="card p-5 mb-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+          <div>
+            <h2 class="text-2xl font-bold">Calendar</h2>
+            <p class="muted text-sm">
+              Schedule lessons and manage your availability.
+            </p>
           </div>
 
-          <h1 class="text-xl font-bold truncate">
-            Coach Portal
-          </h1>
-        </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="dayViewBtn" class="view-btn">Day</button>
+            <button id="weekViewBtn" class="view-btn">Week</button>
+            <button id="monthViewBtn" class="view-btn active">Month</button>
 
-        <div class="flex items-center gap-4">
-          <span class="pill">Coach</span>
+            <button
+              id="prevBtn"
+              type="button"
+              class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
 
-          <a
-            href="index.html"
-            class="text-sm text-blue-600 font-semibold whitespace-nowrap"
-          >
-            <i class="fa-solid fa-right-from-bracket mr-1"></i>
-            Logout
-          </a>
+            <p id="rangeLabel" class="min-w-44 text-center font-semibold"></p>
+
+            <button
+              id="nextBtn"
+              type="button"
+              class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-6">
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div class="card p-4">
+          <div id="monthHeaders" class="calendar-grid mb-2">
+            <div class="cal-dow">Sun</div>
+            <div class="cal-dow">Mon</div>
+            <div class="cal-dow">Tue</div>
+            <div class="cal-dow">Wed</div>
+            <div class="cal-dow">Thu</div>
+            <div class="cal-dow">Fri</div>
+            <div class="cal-dow">Sat</div>
+          </div>
 
-      <!-- Navigation -->
-      <section class="mb-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <button
-            id="navDashboardBtn"
-            class="top-nav-btn active"
-          >
-            Dashboard
-          </button>
-
-          <button
-            id="navCalendarBtn"
-            class="top-nav-btn"
-          >
-            Calendar
-          </button>
-
-          <button
-            id="navStudentsBtn"
-            class="top-nav-btn"
-          >
-            Students
-          </button>
-
-          <button
-            id="openAddStudentBtn"
-            type="button"
-            class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold leading-none"
-            aria-label="Add Student"
-            title="Add Student"
-          >
-            +
-          </button>
-        </div>
-      </section>
-
-      <!-- Dashboard -->
-      <section id="dashboardSection">
-        <div class="card p-5 mb-4">
-          <h2 class="text-2xl font-bold mb-1">
-            Dashboard
-          </h2>
-
-          <p class="muted mb-4">
-            Overview of your students, lessons, and schedule.
-          </p>
-
-          <div
-            id="dashboardStats"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm"
-          ></div>
+          <div id="calendarGrid" class="calendar-grid"></div>
         </div>
 
         <div class="card p-5">
-          <h3 class="text-lg font-bold mb-1">
-            Find a Student
-          </h3>
-
-          <p class="text-xs muted mb-3">
-            Search by name, email, or phone. Select a result to open their profile.
-          </p>
-
-          <input
-            id="dashboardStudentSearch"
-            type="text"
-            placeholder="Search students..."
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-3"
-          />
-
-          <div
-            id="dashboardStudentResults"
-            class="space-y-2"
-          ></div>
-        </div>
-      </section>
-
-      <!-- Calendar -->
-      <section
-        id="calendarSection"
-        class="hidden-section"
-      >
-        <div class="card p-5 mb-4">
-          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
-            <div>
-              <h2 class="text-2xl font-bold">
-                Calendar
-              </h2>
-
-              <p class="muted text-sm">
-                Schedule lessons and manage your availability.
-              </p>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2">
-              <button
-                id="dayViewBtn"
-                class="view-btn"
-              >
-                Day
-              </button>
-
-              <button
-                id="weekViewBtn"
-                class="view-btn"
-              >
-                Week
-              </button>
-
-              <button
-                id="monthViewBtn"
-                class="view-btn active"
-              >
-                Month
-              </button>
-
-              <div class="w-px h-7 bg-gray-300 mx-1"></div>
-
-              <button
-                id="prevBtn"
-                class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
-                aria-label="Previous"
-              >
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-
-              <p
-                id="rangeLabel"
-                class="min-w-44 text-center font-semibold"
-              ></p>
-
-              <button
-                id="nextBtn"
-                class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
-                aria-label="Next"
-              >
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
+          <h3 id="selectedDateLabel" class="font-semibold mb-3"></h3>
+          <div id="selectedDayEvents" class="space-y-2 text-sm"></div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
-
-          <!-- Calendar Grid -->
-          <div>
-            <div class="card p-4">
-              <div
-                id="monthHeaders"
-                class="calendar-grid mb-2"
-              >
-                <div class="cal-dow">Sun</div>
-                <div class="cal-dow">Mon</div>
-                <div class="cal-dow">Tue</div>
-                <div class="cal-dow">Wed</div>
-                <div class="cal-dow">Thu</div>
-                <div class="cal-dow">Fri</div>
-                <div class="cal-dow">Sat</div>
-              </div>
-
-              <div
-                id="weekHeaders"
-                class="week-grid mb-2 hidden"
-              ></div>
-
-              <div
-                id="calendarGrid"
-                class="calendar-grid"
-              ></div>
+        <div>
+          <div class="card p-5 mb-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">Day Timeline</h3>
+              <span class="text-xs muted">7 AM - 2 PM</span>
             </div>
+
+            <label class="text-sm font-medium">Lesson Duration</label>
+
+            <select
+              id="coachDuration"
+              class="mt-1 mb-3 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            >
+              <option value="30">30 minutes</option>
+              <option value="60">60 minutes</option>
+              <option value="90">90 minutes</option>
+            </select>
+
+            <div id="dayTimeline" class="space-y-2 text-sm"></div>
           </div>
 
-          <!-- Selected Day Appointments -->
-          <div>
-            <div class="card p-5">
-              <h3
-                id="selectedDateLabel"
-                class="font-semibold mb-2"
-              >
-                Selected Day Appointments
-              </h3>
-
-              <div
-                id="selectedDayEvents"
-                class="space-y-2 text-sm"
-              ></div>
-            </div>
-          </div>
-
-          <!-- Timeline and Availability -->
-          <div>
-            <div class="card p-5 mb-4">
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <h3 class="font-semibold">
-                  Day Timeline
-                </h3>
-
-                <span class="text-xs muted">
-                  7:00 AM - 2:00 PM
-                </span>
-              </div>
-
-              <div class="mb-3">
-                <label
-                  for="coachDuration"
-                  class="text-sm font-medium"
-                >
-                  Lesson Duration
-                </label>
-
-                <select
-                  id="coachDuration"
-                  class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-                >
-                  <option value="30">30 minutes</option>
-                  <option value="60">60 minutes</option>
-                  <option value="90">90 minutes</option>
-                </select>
-              </div>
-
-              <div
-                id="dayTimeline"
-                class="space-y-2 text-sm"
-              ></div>
-            </div>
-
-            <div class="card p-5">
-              <h3 class="text-lg font-bold mb-1">
-                Edit Availability
-              </h3>
-
-              <p class="text-sm muted mb-4">
-                Block time when you are not available.
-              </p>
-
-              <div class="space-y-2">
-                <label
-                  for="blockDate"
-                  class="text-sm font-medium"
-                >
-                  Date
-                </label>
-
-                <input
-                  id="blockDate"
-                  type="date"
-                  class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-                />
-
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label
-                      for="blockStart"
-                      class="text-sm font-medium"
-                    >
-                      Start
-                    </label>
-
-                    <input
-                      id="blockStart"
-                      type="time"
-                      value="07:00"
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      for="blockEnd"
-                      class="text-sm font-medium"
-                    >
-                      End
-                    </label>
-
-                    <input
-                      id="blockEnd"
-                      type="time"
-                      value="08:00"
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  id="addBlockBtn"
-                  class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
-                >
-                  Add Block
-                </button>
-
-                <p
-                  id="blockMsg"
-                  class="text-xs muted"
-                ></p>
-              </div>
-
-              <hr class="my-4" />
-
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-semibold">
-                  Current Blocks
-                </h4>
-
-                <button
-                  id="clearBlocksBtn"
-                  class="text-xs text-red-600 font-semibold"
-                >
-                  Clear All
-                </button>
-              </div>
-
-              <div
-                id="blocksList"
-                class="space-y-2 text-sm"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Students -->
-      <section
-        id="studentsSection"
-        class="hidden-section"
-      >
-        <div class="max-w-3xl mx-auto space-y-4">
-
-          <!-- Search and Select Student -->
           <div class="card p-5">
-            <h2 class="text-lg font-bold mb-2">
-              Find Student
-            </h2>
+            <h3 class="text-lg font-bold mb-1">Edit Availability</h3>
+            <p class="text-sm muted mb-3">
+              Block time when you are not available.
+            </p>
 
             <input
-              id="studentSearch"
-              type="text"
-              placeholder="Search students..."
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-3"
+              id="blockDate"
+              type="date"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-2"
             />
 
-            <div
-              id="studentsList"
-              class="space-y-2"
-            ></div>
-          </div>
+            <div class="grid grid-cols-2 gap-2">
+              <input
+                id="blockStart"
+                type="time"
+                value="07:00"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              />
 
-          <!-- Selected Student Profile -->
-          <div id="selectedStudentPanel">
-            <div class="card p-5">
-              <p class="muted">
-                Select a student to view their profile, lessons, notes, photos, and videos.
-              </p>
+              <input
+                id="blockEnd"
+                type="time"
+                value="08:00"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              />
             </div>
+
+            <button
+              id="addBlockBtn"
+              type="button"
+              class="w-full mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+            >
+              Add Block
+            </button>
+
+            <p id="blockMsg" class="text-xs muted mt-2"></p>
+
+            <hr class="my-4" />
+
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-semibold">Current Blocks</h4>
+
+              <button
+                id="clearBlocksBtn"
+                type="button"
+                class="text-xs text-red-600 font-semibold"
+              >
+                Clear All
+              </button>
+            </div>
+
+            <div id="blocksList" class="space-y-2 text-sm"></div>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </section>
+
+    <!-- Students -->
+    <section id="studentsSection" class="hidden-section">
+      <div class="max-w-3xl mx-auto">
+        <div class="card p-5 mb-4">
+          <h2 class="text-lg font-bold mb-2">Find Student</h2>
+
+          <input
+            id="studentSearch"
+            type="text"
+            placeholder="Search students..."
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+          />
+        </div>
+
+        <div id="studentsList" class="space-y-2 mb-4"></div>
+
+        <div id="selectedStudentPanel">
+          <div class="card p-5">
+            <p class="muted">
+              Select a student to view their profile.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Add Student Modal -->
   <div
     id="addStudentModalOverlay"
-    class="hidden fixed inset-0 bg-black/40 z-40 flex items-center justify-center p-4"
+    class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
   >
     <div class="card p-5 w-full max-w-md relative">
       <button
         id="closeAddStudentModalBtn"
         type="button"
-        class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        class="absolute top-3 right-3 text-gray-400"
         aria-label="Close"
       >
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <h2 class="text-xl font-bold mb-1">
-        Add Student
-      </h2>
-
-      <p class="muted text-sm mb-4">
-        Add a student to your coaching roster.
+      <h2 class="text-xl font-bold mb-1">Add Student</h2>
+      <p class="text-sm muted mb-4">
+        Add a student and begin scheduling lessons immediately.
       </p>
 
       <div class="space-y-2">
@@ -702,22 +500,17 @@
           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
         />
 
-        <div>
-          <label
-            for="newStudentLessons"
-            class="text-xs font-medium muted"
-          >
-            Lessons Purchased
-          </label>
+        <label class="block text-xs font-medium muted">
+          Lessons Purchased
 
           <input
             id="newStudentLessons"
             type="number"
             min="1"
             value="4"
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
           />
-        </div>
+        </label>
 
         <button
           id="addStudentBtn"
@@ -727,10 +520,7 @@
           Add Student
         </button>
 
-        <p
-          id="addStudentMsg"
-          class="text-xs muted"
-        ></p>
+        <p id="addStudentMsg" class="text-xs muted"></p>
       </div>
     </div>
   </div>
@@ -738,87 +528,50 @@
   <script>
     "use strict";
 
-    // ============================================================
-    // Shared Store
-    // ============================================================
+    const COACH_MEDIA_BUCKET = "coach-media";
+    const SLOT_START_MIN = 7 * 60;
+    const SLOT_END_MIN = 14 * 60;
+    const SLOT_MINUTES = 30;
 
-    const STORE_KEY = "lessonsshop_shared_v1";
-    const COACH_ID = "coach_1";
-
-    const defaultStore = {
-      students: {
-        stu_1: {
-          id: "stu_1",
-          name: "Robert Christenson",
-          email: "robert@example.com",
-          phone: "(555) 111-2222",
-          coachId: COACH_ID,
-          lessonsPurchased: 4
-        }
-      },
+    const state = {
+      user: null,
+      students: [],
       lessons: [],
-      coachBlocks: [],
       notes: [],
-      media: []
+      blocks: [],
+      media: [],
+      selectedStudentId: null,
+      selectedDate: new Date(),
+      currentDate: new Date(),
+      calendarView: "month"
     };
 
-    function cloneStore(value) {
-      return JSON.parse(JSON.stringify(value));
+    const sections = {
+      dashboard: document.getElementById("dashboardSection"),
+      calendar: document.getElementById("calendarSection"),
+      students: document.getElementById("studentsSection")
+    };
+
+    const navButtons = {
+      dashboard: document.getElementById("navDashboardBtn"),
+      calendar: document.getElementById("navCalendarBtn"),
+      students: document.getElementById("navStudentsBtn")
+    };
+
+    function showMessage(text, type = "error") {
+      const element = document.getElementById("appMessage");
+
+      element.textContent = text;
+      element.className = `mb-4 rounded-lg border px-4 py-3 text-sm ${
+        type === "success"
+          ? "border-green-200 bg-green-50 text-green-700"
+          : "border-red-200 bg-red-50 text-red-700"
+      }`;
+
+      setTimeout(() => {
+        element.classList.add("hidden");
+      }, 5000);
     }
-
-    function loadStore() {
-      const raw = localStorage.getItem(STORE_KEY);
-
-      if (!raw) {
-        const initialStore = cloneStore(defaultStore);
-        localStorage.setItem(STORE_KEY, JSON.stringify(initialStore));
-        return initialStore;
-      }
-
-      try {
-        const parsed = JSON.parse(raw);
-
-        parsed.students = parsed.students || {};
-        parsed.lessons = Array.isArray(parsed.lessons) ? parsed.lessons : [];
-        parsed.coachBlocks = Array.isArray(parsed.coachBlocks) ? parsed.coachBlocks : [];
-        parsed.notes = Array.isArray(parsed.notes) ? parsed.notes : [];
-        parsed.media = Array.isArray(parsed.media) ? parsed.media : [];
-
-        Object.values(parsed.students).forEach(student => {
-          if (student.lessonsPurchased == null) {
-            student.lessonsPurchased = 4;
-          }
-        });
-
-        return parsed;
-      } catch (error) {
-        console.error("Could not read saved data:", error);
-
-        const resetStore = cloneStore(defaultStore);
-        localStorage.setItem(STORE_KEY, JSON.stringify(resetStore));
-        return resetStore;
-      }
-    }
-
-    function saveStore(store) {
-      try {
-        localStorage.setItem(STORE_KEY, JSON.stringify(store));
-        localStorage.setItem(`${STORE_KEY}_tick`, String(Date.now()));
-      } catch (error) {
-        console.error("Could not save data:", error);
-        alert(
-          "The item could not be saved. Your browser may be out of storage, especially if a video file is very large."
-        );
-      }
-    }
-
-    function uid(prefix = "id") {
-      return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-    }
-
-    // ============================================================
-    // Helpers
-    // ============================================================
 
     function escapeHtml(value = "") {
       return String(value)
@@ -829,20 +582,8 @@
         .replaceAll("'", "&#039;");
     }
 
-    function formatDateTime(value) {
-      const date = new Date(value);
-
-      if (Number.isNaN(date.getTime())) {
-        return "Unknown date";
-      }
-
-      return date.toLocaleString(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-      });
+    function uid(prefix = "file") {
+      return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
     }
 
     function ymd(date) {
@@ -872,7 +613,10 @@
     }
 
     function shortDate(date) {
-      return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      return date.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric"
+      });
     }
 
     function monthName(year, month) {
@@ -888,86 +632,43 @@
       return result;
     }
 
-    function timeToMinutes(time) {
-      if (!time) {
-        return 0;
-      }
+    function timeToMinutes(value) {
+      if (!value) return 0;
 
-      if (time.includes("AM") || time.includes("PM")) {
-        const parts = time.split(" ");
-        const clock = parts[0];
-        const meridiem = parts[1];
-        const clockParts = clock.split(":");
-
-        const originalHour = Number(clockParts[0]) || 0;
-        const minutes = Number(clockParts[1]) || 0;
-
-        let hour = originalHour % 12;
-
-        if (meridiem === "PM") {
-          hour += 12;
-        }
-
-        return hour * 60 + minutes;
-      }
-
-      const parts = String(time).split(":");
-      const hour = Number(parts[0]) || 0;
-      const minutes = Number(parts[1]) || 0;
-
-      return hour * 60 + minutes;
+      const parts = String(value).split(":");
+      return (Number(parts[0]) || 0) * 60 + (Number(parts[1]) || 0);
     }
 
-    function minutesToTime(totalMinutes) {
-      const hours = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
-
-      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+    function minutesToTime(value) {
+      return `${String(Math.floor(value / 60)).padStart(2, "0")}:${String(value % 60).padStart(2, "0")}`;
     }
 
-    function minutesToLabel(totalMinutes) {
-      const hour24 = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
-      const meridiem = hour24 >= 12 ? "PM" : "AM";
-
+    function minutesToLabel(value) {
+      const hour24 = Math.floor(value / 60);
+      const minutes = value % 60;
+      const suffix = hour24 >= 12 ? "PM" : "AM";
       let hour12 = hour24 % 12;
-
-      if (hour12 === 0) {
-        hour12 = 12;
-      }
-
-      return `${hour12}:${String(minutes).padStart(2, "0")} ${meridiem}`;
+      if (hour12 === 0) hour12 = 12;
+      return `${hour12}:${String(minutes).padStart(2, "0")} ${suffix}`;
     }
 
     function overlaps(startA, endA, startB, endB) {
       return Math.max(startA, startB) < Math.min(endA, endB);
     }
 
-    function formatLessonLabel(index, total) {
-      if (!total) {
-        return `Lesson ${index}`;
-      }
+    function formatDateTime(value) {
+      const date = new Date(value);
 
-      return `Lesson ${index} of ${total}`;
+      return date.toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
     }
 
-    // ============================================================
-    // Navigation
-    // ============================================================
-
-    const sections = {
-      dashboard: document.getElementById("dashboardSection"),
-      calendar: document.getElementById("calendarSection"),
-      students: document.getElementById("studentsSection")
-    };
-
-    const navButtons = {
-      dashboard: document.getElementById("navDashboardBtn"),
-      calendar: document.getElementById("navCalendarBtn"),
-      students: document.getElementById("navStudentsBtn")
-    };
-
-    function showSection(sectionName) {
+    function showSection(name) {
       Object.values(sections).forEach(section => {
         section.classList.add("hidden-section");
       });
@@ -976,13 +677,8 @@
         button.classList.remove("active");
       });
 
-      if (sections[sectionName]) {
-        sections[sectionName].classList.remove("hidden-section");
-      }
-
-      if (navButtons[sectionName]) {
-        navButtons[sectionName].classList.add("active");
-      }
+      sections[name].classList.remove("hidden-section");
+      navButtons[name].classList.add("active");
     }
 
     navButtons.dashboard.addEventListener("click", () => {
@@ -997,128 +693,154 @@
       showSection("students");
     });
 
-    // ============================================================
-    // Add Student Modal
-    // ============================================================
+    async function requireUser() {
+      const { data, error } = await supabaseClient.auth.getUser();
 
-    const addStudentModalOverlay = document.getElementById("addStudentModalOverlay");
-    const openAddStudentButton = document.getElementById("openAddStudentBtn");
-    const closeAddStudentModalButton = document.getElementById("closeAddStudentModalBtn");
-
-    function openAddStudentModal() {
-      addStudentModalOverlay.classList.remove("hidden");
-    }
-
-    function closeAddStudentModal() {
-      addStudentModalOverlay.classList.add("hidden");
-    }
-
-    openAddStudentButton.addEventListener("click", () => {
-      openAddStudentModal();
-    });
-
-    closeAddStudentModalButton.addEventListener("click", () => {
-      closeAddStudentModal();
-    });
-
-    addStudentModalOverlay.addEventListener("click", event => {
-      if (event.target === addStudentModalOverlay) {
-        closeAddStudentModal();
-      }
-    });
-
-    document.getElementById("addStudentBtn").addEventListener("click", () => {
-      const name = document.getElementById("newStudentName").value.trim();
-      const email = document.getElementById("newStudentEmail").value.trim();
-      const phone = document.getElementById("newStudentPhone").value.trim();
-      const lessonsPurchased = Number(document.getElementById("newStudentLessons").value || 4);
-      const message = document.getElementById("addStudentMsg");
-
-      if (!name) {
-        message.textContent = "Please enter a student name.";
-        return;
+      if (error || !data.user) {
+        window.location.href = "index.html";
+        return false;
       }
 
-      const store = loadStore();
-      const id = uid("student");
-
-      store.students[id] = {
-        id,
-        name,
-        email,
-        phone,
-        coachId: COACH_ID,
-        lessonsPurchased: Math.max(1, lessonsPurchased)
-      };
-
-      saveStore(store);
-
-      selectedStudentId = id;
-
-      document.getElementById("newStudentName").value = "";
-      document.getElementById("newStudentEmail").value = "";
-      document.getElementById("newStudentPhone").value = "";
-      document.getElementById("newStudentLessons").value = "4";
-
-      message.textContent = "Student added.";
-
-      closeAddStudentModal();
-
-      showSection("students");
-
-      renderAll();
-    });
-
-    // ============================================================
-    // Dashboard
-    // ============================================================
-
-    function getCoachStudents(store) {
-      return Object.values(store.students || {}).filter(
-        student => student.coachId === COACH_ID
-      );
+      state.user = data.user;
+      return true;
     }
 
-    function getCoachLessons(store) {
-      return (store.lessons || []).filter(lesson => lesson.coachId === COACH_ID);
+    async function loadAllData() {
+      const [students, lessons, notes, blocks, media] = await Promise.all([
+        supabaseClient
+          .from("students")
+          .select("*")
+          .eq("coach_id", state.user.id)
+          .order("name"),
+
+        supabaseClient
+          .from("lessons")
+          .select("*")
+          .eq("coach_id", state.user.id)
+          .order("lesson_date")
+          .order("start_time"),
+
+        supabaseClient
+          .from("notes")
+          .select("*")
+          .eq("coach_id", state.user.id)
+          .order("created_at", { ascending: false }),
+
+        supabaseClient
+          .from("coach_blocks")
+          .select("*")
+          .eq("coach_id", state.user.id)
+          .order("block_date")
+          .order("start_time"),
+
+        supabaseClient
+          .from("media")
+          .select("*")
+          .eq("coach_id", state.user.id)
+          .order("created_at", { ascending: false })
+      ]);
+
+      const result = [students, lessons, notes, blocks, media];
+      const failed = result.find(item => item.error);
+
+      if (failed) {
+        throw failed.error;
+      }
+
+      state.students = students.data || [];
+      state.lessons = lessons.data || [];
+      state.notes = notes.data || [];
+      state.blocks = blocks.data || [];
+      state.media = media.data || [];
+    }
+
+    function getStudent(studentId) {
+      return state.students.find(student => student.id === studentId);
+    }
+
+    function getStudentLessons(studentId) {
+      return state.lessons.filter(lesson => lesson.student_id === studentId);
+    }
+
+    function getStudentNotes(studentId) {
+      return state.notes.filter(note => note.student_id === studentId);
+    }
+
+    function getStudentMedia(studentId) {
+      return state.media.filter(media => media.student_id === studentId);
+    }
+
+    function getDayLessons(dateKey) {
+      return state.lessons.filter(lesson => lesson.lesson_date === dateKey);
+    }
+
+    function getDayBlocks(dateKey) {
+      return state.blocks.filter(block => block.block_date === dateKey);
+    }
+
+    function isSlotOpen(date, startMinutes, endMinutes) {
+      if (date.getDay() === 6) return false;
+      if (startMinutes < SLOT_START_MIN) return false;
+      if (endMinutes > SLOT_END_MIN) return false;
+
+      for (const block of getDayBlocks(ymd(date))) {
+        if (
+          overlaps(
+            startMinutes,
+            endMinutes,
+            timeToMinutes(block.start_time),
+            timeToMinutes(block.end_time)
+          )
+        ) {
+          return false;
+        }
+      }
+
+      for (const lesson of getDayLessons(ymd(date))) {
+        const lessonStart = timeToMinutes(lesson.start_time);
+        const lessonEnd = lessonStart + Number(lesson.duration_minutes || 30);
+
+        if (overlaps(startMinutes, endMinutes, lessonStart, lessonEnd)) {
+          return false;
+        }
+      }
+
+      return true;
     }
 
     function renderDashboard() {
-      const store = loadStore();
-      const students = getCoachStudents(store);
-      const lessons = getCoachLessons(store);
-
       const now = new Date();
       const weekStart = getWeekStart(now);
       const weekEnd = addDays(weekStart, 7);
 
-      const lessonsThisWeek = lessons.filter(lesson => {
-        const lessonDate = new Date(`${lesson.date}T00:00:00`);
-        return lessonDate >= weekStart && lessonDate < weekEnd;
+      const lessonsThisWeek = state.lessons.filter(lesson => {
+        const date = new Date(`${lesson.lesson_date}T00:00:00`);
+        return date >= weekStart && date < weekEnd;
       });
 
       const hoursThisWeek = lessonsThisWeek.reduce((total, lesson) => {
-        return total + Number(lesson.duration || 30) / 60;
+        return total + Number(lesson.duration_minutes || 30) / 60;
       }, 0);
 
-      const upcomingLessons = lessons
-        .map(lesson => {
-          return { ...lesson, dateTime: new Date(`${lesson.date}T${lesson.start}`) };
-        })
+      const upcoming = state.lessons
+        .map(lesson => ({
+          ...lesson,
+          dateTime: new Date(`${lesson.lesson_date}T${lesson.start_time}`)
+        }))
         .filter(lesson => lesson.dateTime >= now)
         .sort((a, b) => a.dateTime - b.dateTime);
 
-      const nextLesson = upcomingLessons[0];
+      const next = upcoming[0];
 
       document.getElementById("dashboardStats").innerHTML = `
         <div class="border rounded-lg p-3">
           <p class="text-xs muted">Students</p>
-          <p class="text-xl font-bold">${students.length}</p>
+          <p class="text-xl font-bold">${state.students.length}</p>
         </div>
 
         <div class="border rounded-lg p-3">
           <p class="text-xs muted">Lessons Scheduled</p>
-          <p class="text-xl font-bold">${lessons.length}</p>
+          <p class="text-xl font-bold">${state.lessons.length}</p>
         </div>
 
         <div class="border rounded-lg p-3">
@@ -1129,891 +851,576 @@
         <div class="border rounded-lg p-3">
           <p class="text-xs muted">Next Lesson</p>
           <p class="text-sm font-semibold">
-            ${
-              nextLesson
-                ? `${escapeHtml(nextLesson.date)} ${escapeHtml(nextLesson.start)}`
-                : "None scheduled"
-            }
+            ${next ? `${escapeHtml(next.lesson_date)} ${escapeHtml(next.start_time)}` : "None scheduled"}
           </p>
         </div>
       `;
 
-      renderDashboardStudentSearch();
+      renderDashboardSearch();
     }
 
-    function renderDashboardStudentSearch() {
-      const store = loadStore();
-      const searchInput = document.getElementById("dashboardStudentSearch");
-      const resultsContainer = document.getElementById("dashboardStudentResults");
+    function renderDashboardSearch() {
+      const search = document
+        .getElementById("dashboardStudentSearch")
+        .value
+        .trim()
+        .toLowerCase();
 
-      const search = String(searchInput.value || "").trim().toLowerCase();
-
-      const students = getCoachStudents(store)
-        .filter(student => {
-          if (!search) {
-            return false;
-          }
-
-          return (
-            String(student.name || "").toLowerCase().includes(search) ||
-            String(student.email || "").toLowerCase().includes(search) ||
-            String(student.phone || "").toLowerCase().includes(search)
-          );
-        })
-        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
+      const results = document.getElementById("dashboardStudentResults");
 
       if (!search) {
-        resultsContainer.innerHTML = `
+        results.innerHTML = `
           <p class="muted text-sm">
-            Start typing a student's name, email, or phone number.
+            Start typing a student's name, email, or phone.
           </p>
         `;
         return;
       }
 
-      if (!students.length) {
-        resultsContainer.innerHTML = `
-          <p class="muted text-sm">
-            No students found.
-          </p>
-        `;
+      const matches = state.students.filter(student => {
+        return (
+          String(student.name || "").toLowerCase().includes(search) ||
+          String(student.email || "").toLowerCase().includes(search) ||
+          String(student.phone || "").toLowerCase().includes(search)
+        );
+      });
+
+      if (!matches.length) {
+        results.innerHTML = `<p class="muted text-sm">No students found.</p>`;
         return;
       }
 
-      resultsContainer.innerHTML = students
+      results.innerHTML = matches
         .map(student => {
-          const scheduledLessons = getStudentLessons(store, student.id).length;
-          const purchasedLessons = Number(student.lessonsPurchased || 0);
-
           return `
             <button
               type="button"
-              data-dashboard-student-id="${escapeHtml(student.id)}"
-              class="w-full text-left border rounded-lg px-3 py-2 hover:bg-gray-50 border-gray-200"
+              data-dashboard-student="${student.id}"
+              class="w-full text-left border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-50"
             >
               <p class="font-semibold text-sm">${escapeHtml(student.name)}</p>
               <p class="text-xs muted">${escapeHtml(student.email || "")}</p>
-              <p class="text-xs muted mt-1">
-                ${scheduledLessons}/${purchasedLessons} lessons scheduled
-              </p>
             </button>
           `;
         })
         .join("");
 
-      resultsContainer.querySelectorAll("[data-dashboard-student-id]").forEach(button => {
+      results.querySelectorAll("[data-dashboard-student]").forEach(button => {
         button.addEventListener("click", () => {
-          selectedStudentId = button.dataset.dashboardStudentId;
+          state.selectedStudentId = button.dataset.dashboardStudent;
           showSection("students");
-          renderStudentsList();
-          renderSelectedStudentPanel();
+          renderStudents();
+          renderStudentProfile();
         });
       });
     }
 
-    document.getElementById("dashboardStudentSearch").addEventListener("input", () => {
-      renderDashboardStudentSearch();
-    });
+    document
+      .getElementById("dashboardStudentSearch")
+      .addEventListener("input", renderDashboardSearch);
 
-    // ============================================================
-    // Students
-    // ============================================================
+    function renderStudents() {
+      const search = document
+        .getElementById("studentSearch")
+        .value
+        .trim()
+        .toLowerCase();
 
-    let selectedStudentId = null;
+      const results = state.students.filter(student => {
+        if (!search) return true;
 
-    const studentsListElement = document.getElementById("studentsList");
-    const studentSearchElement = document.getElementById("studentSearch");
-    const selectedStudentPanel = document.getElementById("selectedStudentPanel");
+        return (
+          String(student.name || "").toLowerCase().includes(search) ||
+          String(student.email || "").toLowerCase().includes(search) ||
+          String(student.phone || "").toLowerCase().includes(search)
+        );
+      });
 
-    function getStudentLessons(store, studentId) {
-      return (store.lessons || [])
-        .filter(lesson => lesson.studentId === studentId && lesson.coachId === COACH_ID)
-        .sort((a, b) => {
-          const first = `${a.date}T${a.start}`;
-          const second = `${b.date}T${b.start}`;
-          return first.localeCompare(second);
-        });
-    }
+      const container = document.getElementById("studentsList");
 
-    function getStudentNotes(store, studentId) {
-      return (store.notes || [])
-        .filter(note => note.studentId === studentId && note.coachId === COACH_ID)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-
-    function getStudentMedia(store, studentId) {
-      return (store.media || [])
-        .filter(media => media.studentId === studentId && media.coachId === COACH_ID)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-
-    function renderStudentsList() {
-      const store = loadStore();
-      const search = String(studentSearchElement.value || "").trim().toLowerCase();
-
-      const students = getCoachStudents(store)
-        .filter(student => {
-          if (!search) {
-            return true;
-          }
-
-          return (
-            String(student.name || "").toLowerCase().includes(search) ||
-            String(student.email || "").toLowerCase().includes(search) ||
-            String(student.phone || "").toLowerCase().includes(search)
-          );
-        })
-        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
-
-      if (!students.length) {
-        studentsListElement.innerHTML = `
-          <p class="muted text-sm px-2 py-2">
-            No students found.
-          </p>
-        `;
+      if (!results.length) {
+        container.innerHTML = `<p class="muted text-sm">No students found.</p>`;
         return;
       }
 
-      studentsListElement.innerHTML = students
+      container.innerHTML = results
         .map(student => {
-          const scheduledLessons = getStudentLessons(store, student.id).length;
-          const purchasedLessons = Number(student.lessonsPurchased || 0);
+          const lessonCount = getStudentLessons(student.id).length;
 
           return `
             <button
               type="button"
-              data-student-id="${escapeHtml(student.id)}"
-              class="w-full text-left border rounded-lg px-3 py-2 hover:bg-gray-50 ${
-                student.id === selectedStudentId ? "border-blue-300 bg-blue-50" : "border-gray-200"
+              data-student-id="${student.id}"
+              class="w-full text-left border rounded-lg px-3 py-3 ${
+                student.id === state.selectedStudentId
+                  ? "border-blue-300 bg-blue-50"
+                  : "border-gray-200 bg-white"
               }"
             >
               <p class="font-semibold text-sm">${escapeHtml(student.name)}</p>
               <p class="text-xs muted">${escapeHtml(student.email || "")}</p>
-              <p class="text-xs muted mt-1">
-                ${scheduledLessons}/${purchasedLessons} lessons scheduled
-              </p>
+              <p class="text-xs muted">${lessonCount} lessons scheduled</p>
             </button>
           `;
         })
         .join("");
 
-      studentsListElement.querySelectorAll("[data-student-id]").forEach(button => {
+      container.querySelectorAll("[data-student-id]").forEach(button => {
         button.addEventListener("click", () => {
-          selectedStudentId = button.dataset.studentId;
-          renderStudentsList();
-          renderSelectedStudentPanel();
+          state.selectedStudentId = button.dataset.studentId;
+          renderStudents();
+          renderStudentProfile();
         });
       });
     }
 
-    function findNextOpenSlot(store, startingDate, duration = 30) {
-      for (let offset = 0; offset < 90; offset += 1) {
-        const date = addDays(startingDate, offset);
+    document
+      .getElementById("studentSearch")
+      .addEventListener("input", renderStudents);
 
-        if (date.getDay() === 6) {
-          continue;
-        }
-
-        for (let start = SLOT_START_MIN; start < SLOT_END_MIN; start += SLOT_MINUTES) {
-          if (isSlotOpenForCoach(store, date, start, start + duration)) {
-            return { date: ymd(date), time: minutesToTime(start) };
-          }
-        }
-      }
-
-      return { date: ymd(startingDate), time: "07:00" };
-    }
-
-    function renderSelectedStudentPanel() {
-      const store = loadStore();
-      const student = store.students?.[selectedStudentId];
+    function renderStudentProfile() {
+      const student = getStudent(state.selectedStudentId);
+      const panel = document.getElementById("selectedStudentPanel");
 
       if (!student) {
-        selectedStudentPanel.innerHTML = `
+        panel.innerHTML = `
           <div class="card p-5">
-            <p class="muted">
-              Select a student to view their profile, lessons, notes, photos, and videos.
-            </p>
+            <p class="muted">Select a student to view their profile.</p>
           </div>
         `;
         return;
       }
 
-      const lessons = getStudentLessons(store, student.id);
-      const notes = getStudentNotes(store, student.id);
-      const media = getStudentMedia(store, student.id);
-
-      const purchasedLessons = Math.max(0, Number(student.lessonsPurchased || 0));
-      const scheduledLessons = lessons.length;
-      const nextLessonNumber = scheduledLessons + 1;
-
-      const progressPercent = purchasedLessons
-        ? Math.min(100, Math.round((scheduledLessons / purchasedLessons) * 100))
+      const lessons = getStudentLessons(student.id);
+      const notes = getStudentNotes(student.id);
+      const media = getStudentMedia(student.id);
+      const purchased = Number(student.lessons_purchased || 0);
+      const progress = purchased
+        ? Math.min(100, Math.round((lessons.length / purchased) * 100))
         : 0;
 
-      const suggestedSlot = findNextOpenSlot(store, new Date(), 30);
-
-      selectedStudentPanel.innerHTML = `
-        <!-- Student Profile Header -->
+      panel.innerHTML = `
         <div class="card p-5 mb-4">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            <div>
-              <h2 class="text-2xl font-bold mb-1">${escapeHtml(student.name)}</h2>
-              <p class="text-sm muted">
-                ${escapeHtml(student.email || "")}
-                ${student.phone ? ` · ${escapeHtml(student.phone)}` : ""}
-              </p>
+          <h2 class="text-2xl font-bold">${escapeHtml(student.name)}</h2>
+          <p class="text-sm muted">
+            ${escapeHtml(student.email || "")}
+            ${student.phone ? ` · ${escapeHtml(student.phone)}` : ""}
+          </p>
+
+          <div class="mt-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span>Lesson Progress</span>
+              <span>${lessons.length} of ${purchased}</span>
             </div>
 
-            <div class="md:min-w-56">
-              <div class="flex items-center justify-between text-sm mb-1">
-                <span class="font-semibold">Lesson Progress</span>
-                <span>${scheduledLessons} of ${purchasedLessons}</span>
-              </div>
-
-              <div class="progress-track">
-                <div class="progress-bar" style="width: ${progressPercent}%"></div>
-              </div>
+            <div class="progress-track">
+              <div class="progress-bar" style="width:${progress}%"></div>
             </div>
           </div>
         </div>
 
-        <!-- Scheduled Lessons -->
         <div class="card p-5 mb-4">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-            <div>
-              <h3 class="text-lg font-bold">Scheduled Lessons</h3>
-              <p class="text-xs muted">
-                Schedule lesson ${nextLessonNumber}${purchasedLessons ? ` of ${purchasedLessons}` : ""} next.
-              </p>
-            </div>
+          <h3 class="text-lg font-bold mb-3">Schedule Lessons</h3>
 
-            <span class="pill">${scheduledLessons} scheduled</span>
-          </div>
-
-          <div class="space-y-2 mb-5">
+          <div class="space-y-2 mb-4">
             ${
               lessons.length
                 ? lessons
-                    .map((lesson, index) => {
-                      const lessonDate = new Date(`${lesson.date}T${lesson.start}`);
-                      const isPast = lessonDate < new Date();
-
-                      return `
-                        <div class="border border-gray-200 rounded-lg px-3 py-3">
-                          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                            <div>
-                              <p class="font-semibold">
-                                ${formatLessonLabel(index + 1, purchasedLessons)}
-                              </p>
-
-                              <p class="text-sm muted">
-                                ${escapeHtml(lesson.date)} · ${escapeHtml(lesson.start)} ·
-                                ${Number(lesson.duration || 30)} minutes
-                              </p>
-
-                              <p class="text-xs ${isPast ? "text-gray-500" : "text-blue-600"} mt-1">
-                                ${isPast ? "Past lesson" : "Upcoming lesson"}
-                              </p>
-                            </div>
-
-                            <button
-                              type="button"
-                              data-remove-lesson="${escapeHtml(lesson.id)}"
-                              class="text-xs text-red-600 font-semibold"
-                            >
-                              Cancel
-                            </button>
-                          </div>
+                    .map((lesson, index) => `
+                      <div class="border rounded-lg p-3 flex justify-between gap-3">
+                        <div>
+                          <p class="font-semibold">
+                            Lesson ${index + 1}${purchased ? ` of ${purchased}` : ""}
+                          </p>
+                          <p class="text-sm muted">
+                            ${escapeHtml(lesson.lesson_date)}
+                            ·
+                            ${escapeHtml(lesson.start_time)}
+                            ·
+                            ${lesson.duration_minutes} minutes
+                          </p>
                         </div>
-                      `;
-                    })
+
+                        <button
+                          type="button"
+                          data-delete-lesson="${lesson.id}"
+                          class="text-xs text-red-600 font-semibold"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    `)
                     .join("")
-                : `<p class="muted text-sm">No lessons scheduled yet.</p>`
+                : `<p class="muted text-sm">No lessons scheduled.</p>`
             }
           </div>
 
           <div class="border-t pt-4">
-            <h4 class="text-sm font-semibold mb-2">
-              Schedule Lesson ${nextLessonNumber}${purchasedLessons ? ` of ${purchasedLessons}` : ""}
-            </h4>
-
             <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
-              <input
-                id="scheduleDate"
-                type="date"
-                value="${escapeHtml(suggestedSlot.date)}"
-                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
-              />
+              <input id="profileLessonDate" type="date" class="border rounded-lg px-3 py-2 text-sm" />
+              <input id="profileLessonTime" type="time" value="07:00" step="1800" class="border rounded-lg px-3 py-2 text-sm" />
 
-              <input
-                id="scheduleTime"
-                type="time"
-                value="${escapeHtml(suggestedSlot.time)}"
-                step="1800"
-                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
-              />
-
-              <select
-                id="scheduleDuration"
-                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
-              >
+              <select id="profileLessonDuration" class="border rounded-lg px-3 py-2 text-sm">
                 <option value="30">30 minutes</option>
                 <option value="60">60 minutes</option>
                 <option value="90">90 minutes</option>
               </select>
 
               <button
-                id="scheduleLessonBtn"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+                id="profileScheduleBtn"
+                type="button"
+                class="bg-blue-600 text-white rounded-lg px-3 py-2 text-sm font-semibold"
               >
                 Schedule
               </button>
             </div>
 
-            <p id="scheduleMessage" class="text-xs muted mt-2"></p>
+            <p id="profileScheduleMessage" class="text-xs muted mt-2"></p>
           </div>
         </div>
 
-        <!-- Notes -->
         <div class="card p-5 mb-4">
-          <h3 class="text-lg font-bold mb-1">Lesson Notes</h3>
-
-          <p class="text-xs muted mb-3">
-            Add notes from the last lesson or any other student update.
-            Notes are automatically date and time stamped.
-          </p>
+          <h3 class="text-lg font-bold mb-2">Notes</h3>
 
           <textarea
-            id="newNoteText"
-            placeholder="Example: Worked on swing tempo and short-game setup..."
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm min-h-28"
+            id="profileNoteText"
+            class="w-full border rounded-lg px-3 py-2 text-sm min-h-24"
+            placeholder="Add a note from the latest lesson..."
           ></textarea>
 
           <button
-            id="addNoteBtn"
-            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+            id="profileAddNoteBtn"
+            type="button"
+            class="mt-2 bg-blue-600 text-white rounded-lg px-4 py-2 text-sm font-semibold"
           >
             Add Note
           </button>
 
-          <div class="space-y-2 mt-4 max-h-96 overflow-auto">
+          <div class="space-y-2 mt-4">
             ${
               notes.length
                 ? notes
-                    .map(note => {
-                      return `
-                        <div class="border border-gray-200 rounded-lg p-3 bg-amber-50">
-                          <p class="text-sm whitespace-pre-wrap">${escapeHtml(note.text)}</p>
-                          <p class="text-xs muted mt-2">Added ${formatDateTime(note.createdAt)}</p>
-                          <button
-                            type="button"
-                            data-remove-note="${escapeHtml(note.id)}"
-                            class="text-xs text-red-600 font-semibold mt-2"
-                          >
-                            Delete Note
-                          </button>
-                        </div>
-                      `;
-                    })
+                    .map(note => `
+                      <div class="border rounded-lg p-3 bg-amber-50">
+                        <p class="text-sm whitespace-pre-wrap">${escapeHtml(note.text)}</p>
+                        <p class="text-xs muted mt-2">
+                          Added ${formatDateTime(note.created_at)}
+                        </p>
+                        <button
+                          type="button"
+                          data-delete-note="${note.id}"
+                          class="text-xs text-red-600 font-semibold mt-2"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    `)
                     .join("")
-                : `<p class="muted text-sm">No notes have been added yet.</p>`
+                : `<p class="muted text-sm">No notes yet.</p>`
             }
           </div>
         </div>
 
-        <!-- Photos and Videos -->
-        <div class="card p-5 mb-4">
-          <h3 class="text-lg font-bold mb-1">Photos and Videos</h3>
-
-          <p class="text-xs muted mb-3">
-            Upload photos or videos from your phone. Each upload is automatically date and time stamped.
-          </p>
+        <div class="card p-5">
+          <h3 class="text-lg font-bold mb-2">Photos and Videos</h3>
 
           <input
-            id="newMediaFile"
+            id="profileMediaFile"
             type="file"
             accept="image/*,video/*"
             capture="environment"
-            class="w-full border border-gray-300 rounded-lg px-2 py-2 text-xs bg-white"
+            class="w-full border rounded-lg px-3 py-2 text-sm"
           />
 
           <button
-            id="addMediaBtn"
-            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+            id="profileUploadMediaBtn"
+            type="button"
+            class="mt-2 bg-blue-600 text-white rounded-lg px-4 py-2 text-sm font-semibold"
           >
             Upload Photo or Video
           </button>
 
-          <p id="mediaMessage" class="text-xs muted mt-2"></p>
+          <p id="profileMediaMessage" class="text-xs muted mt-2"></p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             ${
               media.length
                 ? media
-                    .map(item => {
-                      const isVideo = item.type === "video";
-
-                      return `
-                        <div class="border border-gray-200 rounded-lg p-2">
-                          ${
-                            isVideo
-                              ? `<video src="${item.url}" class="media-thumb" controls></video>`
-                              : `<img src="${item.url}" class="media-thumb" alt="${escapeHtml(
-                                  item.name || "Photo"
-                                )}" />`
-                          }
-
-                          <p class="text-xs font-semibold truncate mt-2">
-                            ${escapeHtml(item.name || "Upload")}
-                          </p>
-
-                          <p class="text-xs muted">Added ${formatDateTime(item.createdAt)}</p>
-
-                          <button
-                            type="button"
-                            data-remove-media="${escapeHtml(item.id)}"
-                            class="text-xs text-red-600 font-semibold mt-2"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      `;
-                    })
+                    .map(item => `
+                      <div class="border rounded-lg p-2">
+                        <p class="text-xs font-semibold truncate">
+                          ${escapeHtml(item.file_name)}
+                        </p>
+                        <p class="text-xs muted mb-2">
+                          Added ${formatDateTime(item.created_at)}
+                        </p>
+                        <button
+                          type="button"
+                          data-download-media="${item.id}"
+                          class="text-xs text-blue-600 font-semibold"
+                        >
+                          Open File
+                        </button>
+                      </div>
+                    `)
                     .join("")
-                : `<p class="muted text-sm col-span-full">No photos or videos have been uploaded yet.</p>`
+                : `<p class="muted text-sm">No photos or videos yet.</p>`
             }
           </div>
         </div>
       `;
 
-      setupStudentPanelEvents(student);
+      setupProfileEvents(student);
     }
 
-    function setupStudentPanelEvents(student) {
-      const scheduleButton = document.getElementById("scheduleLessonBtn");
+    function setupProfileEvents(student) {
+      document.querySelectorAll("[data-delete-lesson]").forEach(button => {
+        button.addEventListener("click", async () => {
+          if (!confirm("Cancel this lesson?")) return;
 
-      scheduleButton.addEventListener("click", () => {
-        const date = document.getElementById("scheduleDate").value;
-        const time = document.getElementById("scheduleTime").value;
-        const duration = Number(document.getElementById("scheduleDuration").value || 30);
-        const message = document.getElementById("scheduleMessage");
+          const { error } = await supabaseClient
+            .from("lessons")
+            .delete()
+            .eq("id", button.dataset.deleteLesson)
+            .eq("coach_id", state.user.id);
+
+          if (error) {
+            showMessage(error.message);
+            return;
+          }
+
+          await refresh();
+        });
+      });
+
+      document.getElementById("profileScheduleBtn").addEventListener("click", async () => {
+        const date = document.getElementById("profileLessonDate").value;
+        const time = document.getElementById("profileLessonTime").value;
+        const duration = Number(document.getElementById("profileLessonDuration").value);
+        const message = document.getElementById("profileScheduleMessage");
 
         if (!date || !time) {
-          message.textContent = "Please select a date and time.";
+          message.textContent = "Choose a date and time.";
           return;
         }
 
-        const store = loadStore();
         const day = new Date(`${date}T00:00:00`);
-        const startMinutes = timeToMinutes(time);
+        const start = timeToMinutes(time);
 
-        if (!isSlotOpenForCoach(store, day, startMinutes, startMinutes + duration)) {
-          message.textContent = "That time is unavailable. Please choose another time.";
+        if (!isSlotOpen(day, start, start + duration)) {
+          message.textContent = "That time is unavailable.";
           return;
         }
 
-        store.lessons.push({
-          id: uid("lesson"),
-          studentId: student.id,
-          coachId: COACH_ID,
-          date,
-          start: time,
-          duration,
-          title: "Coach Booked Lesson",
-          createdBy: "coach",
-          createdAt: new Date().toISOString()
-        });
+        const { error } = await supabaseClient
+          .from("lessons")
+          .insert({
+            coach_id: state.user.id,
+            student_id: student.id,
+            lesson_date: date,
+            start_time: time,
+            duration_minutes: duration,
+            title: "Coach Booked Lesson"
+          });
 
-        saveStore(store);
-        renderAll();
-
-        selectedStudentId = student.id;
-        renderStudentsList();
-        renderSelectedStudentPanel();
-      });
-
-      document.querySelectorAll("[data-remove-lesson]").forEach(button => {
-        button.addEventListener("click", () => {
-          const lessonId = button.dataset.removeLesson;
-
-          if (!confirm("Cancel this lesson?")) {
-            return;
-          }
-
-          const store = loadStore();
-          store.lessons = store.lessons.filter(lesson => lesson.id !== lessonId);
-          saveStore(store);
-          renderAll();
-        });
-      });
-
-      document.getElementById("addNoteBtn").addEventListener("click", () => {
-        const noteText = document.getElementById("newNoteText").value.trim();
-
-        if (!noteText) {
+        if (error) {
+          message.textContent = error.message;
           return;
         }
 
-        const store = loadStore();
-
-        store.notes.unshift({
-          id: uid("note"),
-          studentId: student.id,
-          coachId: COACH_ID,
-          text: noteText,
-          createdAt: new Date().toISOString()
-        });
-
-        saveStore(store);
-        renderAll();
+        await refresh();
+        state.selectedStudentId = student.id;
+        renderStudents();
+        renderStudentProfile();
       });
 
-      document.querySelectorAll("[data-remove-note]").forEach(button => {
-        button.addEventListener("click", () => {
-          const noteId = button.dataset.removeNote;
+      document.getElementById("profileAddNoteBtn").addEventListener("click", async () => {
+        const text = document.getElementById("profileNoteText").value.trim();
 
-          if (!confirm("Delete this note?")) {
+        if (!text) return;
+
+        const { error } = await supabaseClient
+          .from("notes")
+          .insert({
+            coach_id: state.user.id,
+            student_id: student.id,
+            text
+          });
+
+        if (error) {
+          showMessage(error.message);
+          return;
+        }
+
+        await refresh();
+        state.selectedStudentId = student.id;
+        renderStudents();
+        renderStudentProfile();
+      });
+
+      document.querySelectorAll("[data-delete-note]").forEach(button => {
+        button.addEventListener("click", async () => {
+          if (!confirm("Delete this note?")) return;
+
+          const { error } = await supabaseClient
+            .from("notes")
+            .delete()
+            .eq("id", button.dataset.deleteNote)
+            .eq("coach_id", state.user.id);
+
+          if (error) {
+            showMessage(error.message);
             return;
           }
 
-          const store = loadStore();
-          store.notes = store.notes.filter(note => note.id !== noteId);
-          saveStore(store);
-          renderAll();
+          await refresh();
         });
       });
 
-      document.getElementById("addMediaBtn").addEventListener("click", () => {
-        const fileInput = document.getElementById("newMediaFile");
-        const message = document.getElementById("mediaMessage");
-        const file = fileInput.files?.[0];
+      document.getElementById("profileUploadMediaBtn").addEventListener("click", async () => {
+        const input = document.getElementById("profileMediaFile");
+        const message = document.getElementById("profileMediaMessage");
+        const file = input.files?.[0];
 
         if (!file) {
-          message.textContent = "Please choose a photo or video first.";
+          message.textContent = "Choose a photo or video first.";
           return;
         }
 
-        const reader = new FileReader();
+        const path = `${state.user.id}/${student.id}/${uid()}-${file.name}`;
 
-        reader.onload = () => {
-          const store = loadStore();
-
-          store.media.unshift({
-            id: uid("media"),
-            studentId: student.id,
-            coachId: COACH_ID,
-            name: file.name,
-            url: reader.result,
-            type: file.type.startsWith("video") ? "video" : "photo",
-            createdAt: new Date().toISOString()
+        const upload = await supabaseClient.storage
+          .from(COACH_MEDIA_BUCKET)
+          .upload(path, file, {
+            upsert: false,
+            contentType: file.type
           });
 
-          saveStore(store);
-          renderAll();
-        };
+        if (upload.error) {
+          message.textContent = upload.error.message;
+          return;
+        }
 
-        reader.onerror = () => {
-          message.textContent = "The file could not be read.";
-        };
+        const { error } = await supabaseClient
+          .from("media")
+          .insert({
+            coach_id: state.user.id,
+            student_id: student.id,
+            file_name: file.name,
+            file_path: path,
+            file_type: file.type.startsWith("video") ? "video" : "photo"
+          });
 
-        reader.readAsDataURL(file);
+        if (error) {
+          message.textContent = error.message;
+          return;
+        }
+
+        await refresh();
+        state.selectedStudentId = student.id;
+        renderStudents();
+        renderStudentProfile();
       });
 
-      document.querySelectorAll("[data-remove-media]").forEach(button => {
-        button.addEventListener("click", () => {
-          const mediaId = button.dataset.removeMedia;
+      document.querySelectorAll("[data-download-media]").forEach(button => {
+        button.addEventListener("click", async () => {
+          const item = state.media.find(media => media.id === button.dataset.downloadMedia);
 
-          if (!confirm("Delete this photo or video?")) {
+          if (!item) return;
+
+          const result = await supabaseClient.storage
+            .from(COACH_MEDIA_BUCKET)
+            .createSignedUrl(item.file_path, 3600);
+
+          if (result.error) {
+            showMessage(result.error.message);
             return;
           }
 
-          const store = loadStore();
-          store.media = store.media.filter(item => item.id !== mediaId);
-          saveStore(store);
-          renderAll();
+          window.open(result.data.signedUrl, "_blank");
         });
       });
-    }
-
-    document.getElementById("studentSearch").addEventListener("input", () => {
-      renderStudentsList();
-    });
-
-    // ============================================================
-    // Calendar
-    // ============================================================
-
-    const SLOT_START_MIN = 7 * 60;
-    const SLOT_END_MIN = 14 * 60;
-    const SLOT_MINUTES = 30;
-
-    const calendarGrid = document.getElementById("calendarGrid");
-    const monthHeaders = document.getElementById("monthHeaders");
-    const weekHeaders = document.getElementById("weekHeaders");
-    const selectedDateLabel = document.getElementById("selectedDateLabel");
-    const selectedDayEvents = document.getElementById("selectedDayEvents");
-    const rangeLabel = document.getElementById("rangeLabel");
-    const dayTimeline = document.getElementById("dayTimeline");
-
-    const dayViewButton = document.getElementById("dayViewBtn");
-    const weekViewButton = document.getElementById("weekViewBtn");
-    const monthViewButton = document.getElementById("monthViewBtn");
-    const previousButton = document.getElementById("prevBtn");
-    const nextButton = document.getElementById("nextBtn");
-    const coachDurationElement = document.getElementById("coachDuration");
-
-    const today = new Date();
-
-    let selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    let currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    let calendarView = "month";
-
-    function getCoachLessonsForDay(store, dateKey) {
-      return (store.lessons || []).filter(
-        lesson => lesson.coachId === COACH_ID && lesson.date === dateKey
-      );
-    }
-
-    function getCoachBlocksForDay(store, dateKey) {
-      return (store.coachBlocks || []).filter(
-        block => block.coachId === COACH_ID && block.date === dateKey
-      );
-    }
-
-    function isSlotOpenForCoach(store, date, startMinutes, endMinutes) {
-      if (date.getDay() === 6) {
-        return false;
-      }
-
-      if (startMinutes < SLOT_START_MIN) {
-        return false;
-      }
-
-      if (endMinutes > SLOT_END_MIN) {
-        return false;
-      }
-
-      const dateKey = ymd(date);
-      const blocks = getCoachBlocksForDay(store, dateKey);
-
-      for (const block of blocks) {
-        const blockStart = timeToMinutes(block.start);
-        const blockEnd = timeToMinutes(block.end);
-
-        if (overlaps(startMinutes, endMinutes, blockStart, blockEnd)) {
-          return false;
-        }
-      }
-
-      const lessons = getCoachLessonsForDay(store, dateKey);
-
-      for (const lesson of lessons) {
-        const lessonStart = timeToMinutes(lesson.start);
-        const lessonEnd = lessonStart + Number(lesson.duration || 30);
-
-        if (overlaps(startMinutes, endMinutes, lessonStart, lessonEnd)) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-
-    function getDayStatus(store, date) {
-      if (date.getDay() === 6) {
-        return "unavailable";
-      }
-
-      for (let time = SLOT_START_MIN; time < SLOT_END_MIN; time += SLOT_MINUTES) {
-        if (isSlotOpenForCoach(store, date, time, time + SLOT_MINUTES)) {
-          return "available";
-        }
-      }
-
-      return "unavailable";
-    }
-
-    function setActiveCalendarButton() {
-      dayViewButton.classList.remove("active");
-      weekViewButton.classList.remove("active");
-      monthViewButton.classList.remove("active");
-
-      if (calendarView === "day") {
-        dayViewButton.classList.add("active");
-      }
-
-      if (calendarView === "week") {
-        weekViewButton.classList.add("active");
-      }
-
-      if (calendarView === "month") {
-        monthViewButton.classList.add("active");
-      }
-    }
-
-    function renderRangeLabel() {
-      if (calendarView === "month") {
-        rangeLabel.textContent = monthName(currentDate.getFullYear(), currentDate.getMonth());
-        return;
-      }
-
-      if (calendarView === "week") {
-        const start = getWeekStart(currentDate);
-        const end = addDays(start, 6);
-        rangeLabel.textContent = `${shortDate(start)} - ${shortDate(end)}`;
-        return;
-      }
-
-      rangeLabel.textContent = currentDate.toLocaleDateString(undefined, {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-      });
-    }
-
-    function renderCalendarHeaders() {
-      if (calendarView === "month") {
-        monthHeaders.classList.remove("hidden");
-        weekHeaders.classList.add("hidden");
-        return;
-      }
-
-      if (calendarView === "week") {
-        monthHeaders.classList.add("hidden");
-        weekHeaders.classList.remove("hidden");
-
-        const start = getWeekStart(currentDate);
-        weekHeaders.innerHTML = "";
-
-        for (let index = 0; index < 7; index += 1) {
-          const date = addDays(start, index);
-          const header = document.createElement("div");
-          header.className = "cal-dow";
-          header.textContent = date.toLocaleDateString(undefined, {
-            weekday: "short",
-            month: "short",
-            day: "numeric"
-          });
-          weekHeaders.appendChild(header);
-        }
-
-        return;
-      }
-
-      monthHeaders.classList.add("hidden");
-      weekHeaders.classList.add("hidden");
-    }
-
-    function renderDayCard(date, options = {}) {
-      const { otherMonth = false } = options;
-      const store = loadStore();
-      const dateKey = ymd(date);
-      const status = getDayStatus(store, date);
-      const lessonCount = getCoachLessonsForDay(store, dateKey).length;
-
-      const button = document.createElement("button");
-      button.type = "button";
-
-      button.className = [
-        "cal-day",
-        status === "available" ? "available-day" : "unavailable-day",
-        otherMonth ? "other-month" : "",
-        isSameDay(date, today) ? "today" : "",
-        isSameDay(date, selectedDate) ? "selected" : ""
-      ].join(" ");
-
-      button.innerHTML = `
-        <div class="cal-daynum">${date.getDate()}</div>
-        ${
-          lessonCount
-            ? `<div class="text-xs text-blue-700 font-semibold">${lessonCount} booked</div>`
-            : ""
-        }
-      `;
-
-      button.addEventListener("click", () => {
-        selectedDate = cloneDate(date);
-
-        if (calendarView === "month") {
-          calendarView = "day";
-          currentDate = cloneDate(date);
-        }
-
-        renderCalendar();
-        renderSelectedDay();
-      });
-
-      return button;
     }
 
     function renderCalendar() {
-      calendarGrid.innerHTML = "";
+      const grid = document.getElementById("calendarGrid");
+      const date = state.currentDate;
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const days = new Date(year, month + 1, 0).getDate();
+      const previousDays = new Date(year, month, 0).getDate();
 
-      renderRangeLabel();
-      renderCalendarHeaders();
-      setActiveCalendarButton();
+      document.getElementById("rangeLabel").textContent = monthName(year, month);
+      grid.innerHTML = "";
 
-      if (calendarView === "month") {
-        calendarGrid.className = "calendar-grid";
+      const cells = [];
 
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const firstDay = new Date(year, month, 1);
-        const startingDay = firstDay.getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const previousMonthDays = new Date(year, month, 0).getDate();
-
-        const cells = [];
-
-        for (let index = startingDay - 1; index >= 0; index -= 1) {
-          cells.push({
-            date: new Date(year, month - 1, previousMonthDays - index),
-            otherMonth: true
-          });
-        }
-
-        for (let day = 1; day <= daysInMonth; day += 1) {
-          cells.push({ date: new Date(year, month, day), otherMonth: false });
-        }
-
-        let nextMonthDay = 1;
-
-        while (cells.length < 42) {
-          cells.push({ date: new Date(year, month + 1, nextMonthDay), otherMonth: true });
-          nextMonthDay += 1;
-        }
-
-        cells.forEach(cell => {
-          calendarGrid.appendChild(renderDayCard(cell.date, { otherMonth: cell.otherMonth }));
+      for (let i = firstDay - 1; i >= 0; i -= 1) {
+        cells.push({
+          date: new Date(year, month - 1, previousDays - i),
+          other: true
         });
       }
 
-      if (calendarView === "week") {
-        calendarGrid.className = "week-grid";
-        const start = getWeekStart(currentDate);
-
-        for (let index = 0; index < 7; index += 1) {
-          calendarGrid.appendChild(renderDayCard(addDays(start, index)));
-        }
+      for (let day = 1; day <= days; day += 1) {
+        cells.push({
+          date: new Date(year, month, day),
+          other: false
+        });
       }
 
-      if (calendarView === "day") {
-        calendarGrid.className = "day-grid";
-        calendarGrid.appendChild(renderDayCard(currentDate));
+      while (cells.length < 42) {
+        const next = cells.length - (firstDay + days) + 1;
+
+        cells.push({
+          date: new Date(year, month + 1, next),
+          other: true
+        });
       }
 
-      renderDayTimeline();
+      cells.forEach(cell => {
+        const key = ymd(cell.date);
+        const button = document.createElement("button");
+        const available = cell.date.getDay() !== 6;
+
+        button.type = "button";
+        button.className = [
+          "cal-day",
+          available ? "available" : "unavailable",
+          cell.other ? "other-month" : "",
+          isSameDay(cell.date, new Date()) ? "today" : "",
+          isSameDay(cell.date, state.selectedDate) ? "selected" : ""
+        ].join(" ");
+
+        const count = getDayLessons(key).length;
+
+        button.innerHTML = `
+          <div class="font-bold text-sm">${cell.date.getDate()}</div>
+          ${count ? `<div class="text-xs text-blue-700">${count} booked</div>` : ""}
+        `;
+
+        button.addEventListener("click", () => {
+          state.selectedDate = cloneDate(cell.date);
+          renderCalendar();
+          renderSelectedDay();
+          renderTimeline();
+        });
+
+        grid.appendChild(button);
+      });
+
+      renderSelectedDay();
+      renderTimeline();
     }
 
     function renderSelectedDay() {
-      const store = loadStore();
-      const day = calendarView === "day" ? currentDate : selectedDate;
-      const dateKey = ymd(day);
-      const lessons = getCoachLessonsForDay(store, dateKey);
+      const day = state.selectedDate;
+      const key = ymd(day);
+      const lessons = getDayLessons(key);
+      const container = document.getElementById("selectedDayEvents");
 
-      selectedDateLabel.textContent =
+      document.getElementById("selectedDateLabel").textContent =
         `${day.toLocaleDateString(undefined, {
           weekday: "long",
           month: "long",
@@ -2022,21 +1429,20 @@
         })} - Appointments`;
 
       if (!lessons.length) {
-        selectedDayEvents.innerHTML = `<p class="muted">No lessons scheduled.</p>`;
+        container.innerHTML = `<p class="muted">No lessons scheduled.</p>`;
         return;
       }
 
-      selectedDayEvents.innerHTML = lessons
-        .sort((a, b) => a.start.localeCompare(b.start))
+      container.innerHTML = lessons
+        .sort((a, b) => a.start_time.localeCompare(b.start_time))
         .map(lesson => {
-          const student = store.students?.[lesson.studentId];
+          const student = getStudent(lesson.student_id);
 
           return `
-            <div class="border border-gray-200 rounded-lg px-3 py-3">
-              <p class="font-semibold">${escapeHtml(lesson.title || "Lesson")}</p>
-              <p class="text-xs muted mt-1">
-                ${escapeHtml(lesson.start)} · ${Number(lesson.duration || 30)} minutes ·
-                ${escapeHtml(student?.name || "Unknown student")}
+            <div class="border rounded-lg p-3">
+              <p class="font-semibold">${escapeHtml(student?.name || "Unknown student")}</p>
+              <p class="text-xs muted">
+                ${escapeHtml(lesson.start_time)} · ${lesson.duration_minutes} minutes
               </p>
             </div>
           `;
@@ -2044,292 +1450,341 @@
         .join("");
     }
 
-    function renderDayTimeline() {
-      const store = loadStore();
-      const day = calendarView === "day" ? currentDate : selectedDate;
+    function renderTimeline() {
+      const container = document.getElementById("dayTimeline");
+      const day = state.selectedDate;
+      const duration = Number(document.getElementById("coachDuration").value || 30);
 
       if (day.getDay() === 6) {
-        dayTimeline.innerHTML = `<p class="text-red-700 font-semibold">Saturday is unavailable.</p>`;
+        container.innerHTML = `<p class="text-red-700 font-semibold">Saturday is unavailable.</p>`;
         return;
       }
 
-      const dateKey = ymd(day);
-      const duration = Number(coachDurationElement.value || 30);
-
-      const lessons = getCoachLessonsForDay(store, dateKey).map(lesson => {
-        return { ...lesson, startMinutes: timeToMinutes(lesson.start) };
-      });
-
+      const lessons = getDayLessons(ymd(day));
       const rows = [];
 
       for (let time = SLOT_START_MIN; time < SLOT_END_MIN; time += SLOT_MINUTES) {
-        const label = minutesToLabel(time);
-        const bookedLesson = lessons.find(lesson => lesson.startMinutes === time);
-        const open = isSlotOpenForCoach(store, day, time, time + duration);
+        const booked = lessons.find(
+          lesson => timeToMinutes(lesson.start_time) === time
+        );
 
-        if (bookedLesson) {
-          const student = store.students?.[bookedLesson.studentId];
+        const open = isSlotOpen(day, time, time + duration);
+
+        if (booked) {
+          const student = getStudent(booked.student_id);
 
           rows.push(`
             <div class="timeline-row timeline-booked">
               <div>
-                <span class="timeline-time">${label}</span>
-                <span class="ml-2">${escapeHtml(student?.name || "Booked")}</span>
+                <span class="timeline-time">${minutesToLabel(time)}</span>
+                ${escapeHtml(student?.name || "Booked")}
               </div>
-              <span class="timeline-status status-booked">${Number(bookedLesson.duration || 30)}m</span>
+              <span class="status status-booked">${booked.duration_minutes}m</span>
             </div>
           `);
         } else if (open) {
           rows.push(`
-            <button type="button" data-open-slot="${time}" class="timeline-row timeline-open w-full text-left">
+            <button
+              type="button"
+              data-open-slot="${time}"
+              class="timeline-row timeline-open"
+            >
               <div>
-                <span class="timeline-time">${label}</span>
-                <span class="ml-2">Open (${duration}m)</span>
+                <span class="timeline-time">${minutesToLabel(time)}</span>
+                Open (${duration}m)
               </div>
-              <span class="timeline-status status-open">Book</span>
+              <span class="status status-open">Book</span>
             </button>
           `);
         } else {
           rows.push(`
             <div class="timeline-row timeline-blocked">
               <div>
-                <span class="timeline-time">${label}</span>
-                <span class="ml-2">Unavailable</span>
+                <span class="timeline-time">${minutesToLabel(time)}</span>
+                Unavailable
               </div>
-              <span class="timeline-status status-blocked">Blocked</span>
+              <span class="status status-blocked">Blocked</span>
             </div>
           `);
         }
       }
 
-      dayTimeline.innerHTML = rows.join("");
+      container.innerHTML = rows.join("");
 
-      dayTimeline.querySelectorAll("[data-open-slot]").forEach(button => {
+      container.querySelectorAll("[data-open-slot]").forEach(button => {
         button.addEventListener("click", () => {
           quickBook(Number(button.dataset.openSlot));
         });
       });
     }
 
-    function quickBook(startMinutes) {
-      const store = loadStore();
-      const students = getCoachStudents(store);
-
-      if (!students.length) {
-        alert("Add a student first.");
+    async function quickBook(startMinutes) {
+      if (!state.students.length) {
+        showMessage("Add a student first.");
         return;
       }
 
-      const studentList = students.map((student, index) => `${index + 1}. ${student.name}`).join("\n");
-      const selection = prompt(`Choose a student number:\n\n${studentList}`);
+      const list = state.students
+        .map((student, index) => `${index + 1}. ${student.name}`)
+        .join("\n");
 
-      if (selection === null) {
+      const selected = prompt(`Choose a student number:\n\n${list}`);
+      if (selected === null) return;
+
+      const index = Number(selected) - 1;
+
+      if (!Number.isInteger(index) || !state.students[index]) {
         return;
       }
 
-      const studentIndex = Number(selection) - 1;
+      const duration = Number(document.getElementById("coachDuration").value || 30);
+      const date = state.selectedDate;
 
-      if (!Number.isInteger(studentIndex) || studentIndex < 0 || studentIndex >= students.length) {
+      if (!isSlotOpen(date, startMinutes, startMinutes + duration)) {
+        showMessage("That time is unavailable.");
         return;
       }
 
-      const student = students[studentIndex];
-      const duration = Number(coachDurationElement.value || 30);
-      const day = calendarView === "day" ? currentDate : selectedDate;
+      const { error } = await supabaseClient
+        .from("lessons")
+        .insert({
+          coach_id: state.user.id,
+          student_id: state.students[index].id,
+          lesson_date: ymd(date),
+          start_time: minutesToTime(startMinutes),
+          duration_minutes: duration,
+          title: "Coach Booked Lesson"
+        });
 
-      if (!isSlotOpenForCoach(store, day, startMinutes, startMinutes + duration)) {
-        alert("That time is unavailable.");
+      if (error) {
+        showMessage(error.message);
         return;
       }
 
-      store.lessons.push({
-        id: uid("lesson"),
-        studentId: student.id,
-        coachId: COACH_ID,
-        date: ymd(day),
-        start: minutesToTime(startMinutes),
-        duration,
-        title: "Coach Booked Lesson",
-        createdBy: "coach",
-        createdAt: new Date().toISOString()
-      });
-
-      saveStore(store);
-      renderAll();
-
-      alert("Lesson booked.");
+      await refresh();
     }
 
-    dayViewButton.addEventListener("click", () => {
-      calendarView = "day";
-      currentDate = cloneDate(selectedDate);
+    document.getElementById("dayViewBtn").addEventListener("click", () => {
+      state.calendarView = "day";
       renderCalendar();
-      renderSelectedDay();
     });
 
-    weekViewButton.addEventListener("click", () => {
-      calendarView = "week";
-      currentDate = cloneDate(selectedDate);
+    document.getElementById("weekViewBtn").addEventListener("click", () => {
+      state.calendarView = "week";
       renderCalendar();
-      renderSelectedDay();
     });
 
-    monthViewButton.addEventListener("click", () => {
-      calendarView = "month";
-      currentDate = cloneDate(selectedDate);
+    document.getElementById("monthViewBtn").addEventListener("click", () => {
+      state.calendarView = "month";
       renderCalendar();
-      renderSelectedDay();
     });
 
-    previousButton.addEventListener("click", () => {
-      if (calendarView === "month") {
-        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-      } else if (calendarView === "week") {
-        currentDate = addDays(currentDate, -7);
-      } else {
-        currentDate = addDays(currentDate, -1);
-        selectedDate = cloneDate(currentDate);
-      }
-
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      state.currentDate = new Date(
+        state.currentDate.getFullYear(),
+        state.currentDate.getMonth() - 1,
+        1
+      );
       renderCalendar();
-      renderSelectedDay();
     });
 
-    nextButton.addEventListener("click", () => {
-      if (calendarView === "month") {
-        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-      } else if (calendarView === "week") {
-        currentDate = addDays(currentDate, 7);
-      } else {
-        currentDate = addDays(currentDate, 1);
-        selectedDate = cloneDate(currentDate);
-      }
-
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      state.currentDate = new Date(
+        state.currentDate.getFullYear(),
+        state.currentDate.getMonth() + 1,
+        1
+      );
       renderCalendar();
-      renderSelectedDay();
     });
 
-    coachDurationElement.addEventListener("change", () => {
-      renderDayTimeline();
-    });
+    document.getElementById("coachDuration").addEventListener("change", renderTimeline);
 
-    // ============================================================
-    // Availability Blocks
-    // ============================================================
+    function renderBlocks() {
+      const container = document.getElementById("blocksList");
 
-    const blockDateElement = document.getElementById("blockDate");
-    const blockStartElement = document.getElementById("blockStart");
-    const blockEndElement = document.getElementById("blockEnd");
-    const addBlockButton = document.getElementById("addBlockBtn");
-    const blockMessage = document.getElementById("blockMsg");
-    const blocksListElement = document.getElementById("blocksList");
-    const clearBlocksButton = document.getElementById("clearBlocksBtn");
-
-    blockDateElement.value = ymd(today);
-
-    function renderBlocksList() {
-      const store = loadStore();
-
-      const blocks = (store.coachBlocks || [])
-        .filter(block => block.coachId === COACH_ID)
-        .sort((a, b) => `${a.date}${a.start}`.localeCompare(`${b.date}${b.start}`));
-
-      if (!blocks.length) {
-        blocksListElement.innerHTML = `<p class="muted">No blocks added.</p>`;
+      if (!state.blocks.length) {
+        container.innerHTML = `<p class="muted">No blocks added.</p>`;
         return;
       }
 
-      blocksListElement.innerHTML = blocks
-        .map(block => {
-          return `
-            <div class="border border-gray-200 rounded-lg px-3 py-3 flex justify-between items-center gap-2">
-              <p>${escapeHtml(block.date)} ${escapeHtml(block.start)} - ${escapeHtml(block.end)}</p>
-              <button
-                type="button"
-                data-delete-block="${escapeHtml(block.id)}"
-                class="text-xs text-red-600 font-semibold"
-              >
-                Delete
-              </button>
-            </div>
-          `;
-        })
+      container.innerHTML = state.blocks
+        .map(block => `
+          <div class="border rounded-lg px-3 py-2 flex justify-between gap-2">
+            <span>
+              ${escapeHtml(block.block_date)}
+              ${escapeHtml(block.start_time)}-${escapeHtml(block.end_time)}
+            </span>
+
+            <button
+              type="button"
+              data-delete-block="${block.id}"
+              class="text-xs text-red-600 font-semibold"
+            >
+              Delete
+            </button>
+          </div>
+        `)
         .join("");
 
-      blocksListElement.querySelectorAll("[data-delete-block]").forEach(button => {
-        button.addEventListener("click", () => {
-          const store = loadStore();
-          store.coachBlocks = store.coachBlocks.filter(
-            block => block.id !== button.dataset.deleteBlock
-          );
-          saveStore(store);
-          renderAll();
+      container.querySelectorAll("[data-delete-block]").forEach(button => {
+        button.addEventListener("click", async () => {
+          const { error } = await supabaseClient
+            .from("coach_blocks")
+            .delete()
+            .eq("id", button.dataset.deleteBlock)
+            .eq("coach_id", state.user.id);
+
+          if (error) {
+            showMessage(error.message);
+            return;
+          }
+
+          await refresh();
         });
       });
     }
 
-    addBlockButton.addEventListener("click", () => {
-      const date = blockDateElement.value;
-      const start = blockStartElement.value;
-      const end = blockEndElement.value;
+    document.getElementById("addBlockBtn").addEventListener("click", async () => {
+      const date = document.getElementById("blockDate").value;
+      const start = document.getElementById("blockStart").value;
+      const end = document.getElementById("blockEnd").value;
+      const message = document.getElementById("blockMsg");
 
       if (!date || !start || !end || end <= start) {
-        blockMessage.textContent = "Please enter a valid date and time range.";
+        message.textContent = "Enter a valid date and time range.";
         return;
       }
 
-      const store = loadStore();
+      const { error } = await supabaseClient
+        .from("coach_blocks")
+        .insert({
+          coach_id: state.user.id,
+          block_date: date,
+          start_time: start,
+          end_time: end
+        });
 
-      store.coachBlocks.push({
-        id: uid("block"),
-        coachId: COACH_ID,
-        date,
-        start,
-        end,
-        createdAt: new Date().toISOString()
-      });
-
-      saveStore(store);
-
-      blockMessage.textContent = "Availability block added.";
-
-      renderAll();
-    });
-
-    clearBlocksButton.addEventListener("click", () => {
-      if (!confirm("Clear all availability blocks?")) {
+      if (error) {
+        message.textContent = error.message;
         return;
       }
 
-      const store = loadStore();
-      store.coachBlocks = store.coachBlocks.filter(block => block.coachId !== COACH_ID);
-      saveStore(store);
-      renderAll();
+      message.textContent = "Availability block added.";
+      await refresh();
     });
 
-    // ============================================================
-    // Rendering and Synchronization
-    // ============================================================
+    document.getElementById("clearBlocksBtn").addEventListener("click", async () => {
+      if (!confirm("Clear all availability blocks?")) return;
 
-    function renderAll() {
+      const { error } = await supabaseClient
+        .from("coach_blocks")
+        .delete()
+        .eq("coach_id", state.user.id);
+
+      if (error) {
+        showMessage(error.message);
+        return;
+      }
+
+      await refresh();
+    });
+
+    const modal = document.getElementById("addStudentModalOverlay");
+
+    document.getElementById("openAddStudentBtn").addEventListener("click", () => {
+      modal.classList.remove("hidden");
+    });
+
+    document.getElementById("closeAddStudentModalBtn").addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        modal.classList.add("hidden");
+      }
+    });
+
+    document.getElementById("addStudentBtn").addEventListener("click", async () => {
+      const name = document.getElementById("newStudentName").value.trim();
+      const email = document.getElementById("newStudentEmail").value.trim();
+      const phone = document.getElementById("newStudentPhone").value.trim();
+      const lessonsPurchased = Number(
+        document.getElementById("newStudentLessons").value || 4
+      );
+      const message = document.getElementById("addStudentMsg");
+
+      if (!name) {
+        message.textContent = "Enter a student name.";
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from("students")
+        .insert({
+          coach_id: state.user.id,
+          name,
+          email,
+          phone,
+          lessons_purchased: Math.max(1, lessonsPurchased)
+        })
+        .select()
+        .single();
+
+      if (error) {
+        message.textContent = error.message;
+        return;
+      }
+
+      state.selectedStudentId = data.id;
+
+      document.getElementById("newStudentName").value = "";
+      document.getElementById("newStudentEmail").value = "";
+      document.getElementById("newStudentPhone").value = "";
+      document.getElementById("newStudentLessons").value = "4";
+
+      modal.classList.add("hidden");
+      showSection("students");
+
+      await refresh();
+      renderStudents();
+      renderStudentProfile();
+      showMessage("Student added.", "success");
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await supabaseClient.auth.signOut();
+      window.location.href = "index.html";
+    });
+
+    async function refresh() {
+      await loadAllData();
       renderDashboard();
-      renderStudentsList();
-      renderSelectedStudentPanel();
+      renderStudents();
+      renderStudentProfile();
       renderCalendar();
-      renderSelectedDay();
-      renderDayTimeline();
-      renderBlocksList();
+      renderBlocks();
     }
 
-    window.addEventListener("storage", event => {
-      if (event.key === STORE_KEY || event.key === `${STORE_KEY}_tick`) {
-        renderAll();
-      }
-    });
+    async function startApp() {
+      const authenticated = await requireUser();
 
-    // Start application
-    renderAll();
-    showSection("dashboard");
+      if (!authenticated) {
+        return;
+      }
+
+      try {
+        await refresh();
+        showSection("dashboard");
+      } catch (error) {
+        console.error(error);
+        showMessage(
+          "The portal could not load data. Check your Supabase tables, RLS policies, and Data API settings."
+        );
+      }
+    }
+
+    startApp();
   </script>
 </body>
 </html>
