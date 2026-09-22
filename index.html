@@ -159,8 +159,7 @@
         loginMessage.textContent = "";
 
         if (
-            email === "coach@example.com" &&
-            password === "lessons123"
+            supabaseClient.auth.signInWithPassword(...)
         ) {
             window.location.href = "coach-portal.html";
             return;
