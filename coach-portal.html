@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lessons Shop - Coach Portal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .muted {
+      color: #6b7280;
+    }
+
+    .pill {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .logo-wrap img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .top-nav-btn {
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #374151;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.15s ease;
+    }
+
+    .top-nav-btn:hover {
+      background: #f9fafb;
+    }
+
+    .top-nav-btn.active {
+      border-color: #93c5fd;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .cal-dow {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    .cal-day {
+      min-height: 118px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+      transition: all 0.15s ease;
+      background: #ffffff;
+    }
+
+    .cal-day:hover {
+      transform: translateY(-1px);
+    }
+
+    .cal-day.other-month {
+      opacity: 0.55;
+    }
+
+    .cal-day.available-day {
+      background: #ecfdf3;
+      border-color: #86efac;
+    }
+
+    .cal-day.unavailable-day {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    .cal-day.today {
+      box-shadow: 0 0 0 2px #93c5fd inset;
+    }
+
+    .cal-day.selected {
+      outline: 2px solid #2563eb;
+      outline-offset: 0;
+    }
+
+    .cal-daynum {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .view-btn {
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #374151;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .view-btn.active {
+      border-color: #93c5fd;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .timeline-row {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-open {
+      background: #ecfdf3;
+      border-color: #86efac;
+      cursor: pointer;
+    }
+
+    .timeline-booked {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .timeline-blocked {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    .timeline-time {
+      font-weight: 700;
+      min-width: 84px;
+      display: inline-block;
+    }
+
+    .timeline-status {
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    .status-open {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .status-booked {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border: 1px solid #93c5fd;
+    }
+
+    .status-blocked {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .media-thumb {
+      width: 100%;
+      height: 150px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #d1d5db;
+      background: #f3f4f6;
+    }
+
+    .hidden-section {
+      display: none;
+    }
+
+    .progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: #2563eb;
+      transition: width 0.2s ease;
+    }
+
+    @media (max-width: 640px) {
+      .cal-day {
+        min-height: 80px;
+        padding: 6px;
+      }
+
+      .cal-daynum {
+        font-size: 12px;
+      }
+
+      .calendar-grid,
+      .week-grid {
+        gap: 4px;
+      }
+
+      .timeline-time {
+        min-width: 72px;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <div class="min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="logo-wrap">
+            <img
+              src="Lessonsshop%20updated%20logo.jpg"
+              alt="Lessons Shop Logo"
+            />
+          </div>
+
+          <h1 class="text-xl font-bold truncate">
+            Coach Portal
+          </h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="pill">Coach</span>
+
+          <a
+            href="index.html"
+            class="text-sm text-blue-600 font-semibold whitespace-nowrap"
+          >
+            <i class="fa-solid fa-right-from-bracket mr-1"></i>
+            Logout
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6">
+
+      <!-- Navigation -->
+      <section class="mb-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="navDashboardBtn"
+            class="top-nav-btn active"
+          >
+            Dashboard
+          </button>
+
+          <button
+            id="navCalendarBtn"
+            class="top-nav-btn"
+          >
+            Calendar
+          </button>
+
+          <button
+            id="navStudentsBtn"
+            class="top-nav-btn"
+          >
+            Students
+          </button>
+
+          <button
+            id="openAddStudentBtn"
+            type="button"
+            class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold leading-none"
+            aria-label="Add Student"
+            title="Add Student"
+          >
+            +
+          </button>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section id="dashboardSection">
+        <div class="card p-5 mb-4">
+          <h2 class="text-2xl font-bold mb-1">
+            Dashboard
+          </h2>
+
+          <p class="muted mb-4">
+            Overview of your students, lessons, and schedule.
+          </p>
+
+          <div
+            id="dashboardStats"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm"
+          ></div>
+        </div>
+
+        <div class="card p-5">
+          <h3 class="text-lg font-bold mb-1">
+            Find a Student
+          </h3>
+
+          <p class="text-xs muted mb-3">
+            Search by name, email, or phone. Select a result to open their profile.
+          </p>
+
+          <input
+            id="dashboardStudentSearch"
+            type="text"
+            placeholder="Search students..."
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-3"
+          />
+
+          <div
+            id="dashboardStudentResults"
+            class="space-y-2"
+          ></div>
+        </div>
+      </section>
+
+      <!-- Calendar -->
+      <section
+        id="calendarSection"
+        class="hidden-section"
+      >
+        <div class="card p-5 mb-4">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+            <div>
+              <h2 class="text-2xl font-bold">
+                Calendar
+              </h2>
+
+              <p class="muted text-sm">
+                Schedule lessons and manage your availability.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <button
+                id="dayViewBtn"
+                class="view-btn"
+              >
+                Day
+              </button>
+
+              <button
+                id="weekViewBtn"
+                class="view-btn"
+              >
+                Week
+              </button>
+
+              <button
+                id="monthViewBtn"
+                class="view-btn active"
+              >
+                Month
+              </button>
+
+              <div class="w-px h-7 bg-gray-300 mx-1"></div>
+
+              <button
+                id="prevBtn"
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
+                aria-label="Previous"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <p
+                id="rangeLabel"
+                class="min-w-44 text-center font-semibold"
+              ></p>
+
+              <button
+                id="nextBtn"
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg"
+                aria-label="Next"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+
+          <!-- Calendar Grid -->
+          <div>
+            <div class="card p-4">
+              <div
+                id="monthHeaders"
+                class="calendar-grid mb-2"
+              >
+                <div class="cal-dow">Sun</div>
+                <div class="cal-dow">Mon</div>
+                <div class="cal-dow">Tue</div>
+                <div class="cal-dow">Wed</div>
+                <div class="cal-dow">Thu</div>
+                <div class="cal-dow">Fri</div>
+                <div class="cal-dow">Sat</div>
+              </div>
+
+              <div
+                id="weekHeaders"
+                class="week-grid mb-2 hidden"
+              ></div>
+
+              <div
+                id="calendarGrid"
+                class="calendar-grid"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Selected Day Appointments -->
+          <div>
+            <div class="card p-5">
+              <h3
+                id="selectedDateLabel"
+                class="font-semibold mb-2"
+              >
+                Selected Day Appointments
+              </h3>
+
+              <div
+                id="selectedDayEvents"
+                class="space-y-2 text-sm"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Timeline and Availability -->
+          <div>
+            <div class="card p-5 mb-4">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <h3 class="font-semibold">
+                  Day Timeline
+                </h3>
+
+                <span class="text-xs muted">
+                  7:00 AM - 2:00 PM
+                </span>
+              </div>
+
+              <div class="mb-3">
+                <label
+                  for="coachDuration"
+                  class="text-sm font-medium"
+                >
+                  Lesson Duration
+                </label>
+
+                <select
+                  id="coachDuration"
+                  class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                >
+                  <option value="30">30 minutes</option>
+                  <option value="60">60 minutes</option>
+                  <option value="90">90 minutes</option>
+                </select>
+              </div>
+
+              <div
+                id="dayTimeline"
+                class="space-y-2 text-sm"
+              ></div>
+            </div>
+
+            <div class="card p-5">
+              <h3 class="text-lg font-bold mb-1">
+                Edit Availability
+              </h3>
+
+              <p class="text-sm muted mb-4">
+                Block time when you are not available.
+              </p>
+
+              <div class="space-y-2">
+                <label
+                  for="blockDate"
+                  class="text-sm font-medium"
+                >
+                  Date
+                </label>
+
+                <input
+                  id="blockDate"
+                  type="date"
+                  class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                />
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label
+                      for="blockStart"
+                      class="text-sm font-medium"
+                    >
+                      Start
+                    </label>
+
+                    <input
+                      id="blockStart"
+                      type="time"
+                      value="07:00"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="blockEnd"
+                      class="text-sm font-medium"
+                    >
+                      End
+                    </label>
+
+                    <input
+                      id="blockEnd"
+                      type="time"
+                      value="08:00"
+                      class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  id="addBlockBtn"
+                  class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+                >
+                  Add Block
+                </button>
+
+                <p
+                  id="blockMsg"
+                  class="text-xs muted"
+                ></p>
+              </div>
+
+              <hr class="my-4" />
+
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-semibold">
+                  Current Blocks
+                </h4>
+
+                <button
+                  id="clearBlocksBtn"
+                  class="text-xs text-red-600 font-semibold"
+                >
+                  Clear All
+                </button>
+              </div>
+
+              <div
+                id="blocksList"
+                class="space-y-2 text-sm"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Students -->
+      <section
+        id="studentsSection"
+        class="hidden-section"
+      >
+        <div class="max-w-3xl mx-auto space-y-4">
+
+          <!-- Search and Select Student -->
+          <div class="card p-5">
+            <h2 class="text-lg font-bold mb-2">
+              Find Student
+            </h2>
+
+            <input
+              id="studentSearch"
+              type="text"
+              placeholder="Search students..."
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-3"
+            />
+
+            <div
+              id="studentsList"
+              class="space-y-2"
+            ></div>
+          </div>
+
+          <!-- Selected Student Profile -->
+          <div id="selectedStudentPanel">
+            <div class="card p-5">
+              <p class="muted">
+                Select a student to view their profile, lessons, notes, photos, and videos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add Student Modal -->
+  <div
+    id="addStudentModalOverlay"
+    class="hidden fixed inset-0 bg-black/40 z-40 flex items-center justify-center p-4"
+  >
+    <div class="card p-5 w-full max-w-md relative">
+      <button
+        id="closeAddStudentModalBtn"
+        type="button"
+        class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        aria-label="Close"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h2 class="text-xl font-bold mb-1">
+        Add Student
+      </h2>
+
+      <p class="muted text-sm mb-4">
+        Add a student to your coaching roster.
+      </p>
+
+      <div class="space-y-2">
+        <input
+          id="newStudentName"
+          type="text"
+          placeholder="Full name"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+        />
+
+        <input
+          id="newStudentEmail"
+          type="email"
+          placeholder="Email"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+        />
+
+        <input
+          id="newStudentPhone"
+          type="text"
+          placeholder="Phone"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+        />
+
+        <div>
+          <label
+            for="newStudentLessons"
+            class="text-xs font-medium muted"
+          >
+            Lessons Purchased
+          </label>
+
+          <input
+            id="newStudentLessons"
+            type="number"
+            min="1"
+            value="4"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+          />
+        </div>
+
+        <button
+          id="addStudentBtn"
+          type="button"
+          class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+        >
+          Add Student
+        </button>
+
+        <p
+          id="addStudentMsg"
+          class="text-xs muted"
+        ></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    // ============================================================
+    // Shared Store
+    // ============================================================
+
+    const STORE_KEY = "lessonsshop_shared_v1";
+    const COACH_ID = "coach_1";
+
+    const defaultStore = {
+      students: {
+        stu_1: {
+          id: "stu_1",
+          name: "Robert Christenson",
+          email: "robert@example.com",
+          phone: "(555) 111-2222",
+          coachId: COACH_ID,
+          lessonsPurchased: 4
+        }
+      },
+      lessons: [],
+      coachBlocks: [],
+      notes: [],
+      media: []
+    };
+
+    function cloneStore(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function loadStore() {
+      const raw = localStorage.getItem(STORE_KEY);
+
+      if (!raw) {
+        const initialStore = cloneStore(defaultStore);
+        localStorage.setItem(STORE_KEY, JSON.stringify(initialStore));
+        return initialStore;
+      }
+
+      try {
+        const parsed = JSON.parse(raw);
+
+        parsed.students = parsed.students || {};
+        parsed.lessons = Array.isArray(parsed.lessons) ? parsed.lessons : [];
+        parsed.coachBlocks = Array.isArray(parsed.coachBlocks) ? parsed.coachBlocks : [];
+        parsed.notes = Array.isArray(parsed.notes) ? parsed.notes : [];
+        parsed.media = Array.isArray(parsed.media) ? parsed.media : [];
+
+        Object.values(parsed.students).forEach(student => {
+          if (student.lessonsPurchased == null) {
+            student.lessonsPurchased = 4;
+          }
+        });
+
+        return parsed;
+      } catch (error) {
+        console.error("Could not read saved data:", error);
+
+        const resetStore = cloneStore(defaultStore);
+        localStorage.setItem(STORE_KEY, JSON.stringify(resetStore));
+        return resetStore;
+      }
+    }
+
+    function saveStore(store) {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify(store));
+        localStorage.setItem(`${STORE_KEY}_tick`, String(Date.now()));
+      } catch (error) {
+        console.error("Could not save data:", error);
+        alert(
+          "The item could not be saved. Your browser may be out of storage, especially if a video file is very large."
+        );
+      }
+    }
+
+    function uid(prefix = "id") {
+      return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    // ============================================================
+    // Helpers
+    // ============================================================
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatDateTime(value) {
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "Unknown date";
+      }
+
+      return date.toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    function ymd(date) {
+      return [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, "0"),
+        String(date.getDate()).padStart(2, "0")
+      ].join("-");
+    }
+
+    function cloneDate(date) {
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    function addDays(date, amount) {
+      const result = cloneDate(date);
+      result.setDate(result.getDate() + amount);
+      return result;
+    }
+
+    function isSameDay(first, second) {
+      return (
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        first.getDate() === second.getDate()
+      );
+    }
+
+    function shortDate(date) {
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    }
+
+    function monthName(year, month) {
+      return new Date(year, month, 1).toLocaleDateString(undefined, {
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function getWeekStart(date) {
+      const result = cloneDate(date);
+      result.setDate(result.getDate() - result.getDay());
+      return result;
+    }
+
+    function timeToMinutes(time) {
+      if (!time) {
+        return 0;
+      }
+
+      if (time.includes("AM") || time.includes("PM")) {
+        const parts = time.split(" ");
+        const clock = parts[0];
+        const meridiem = parts[1];
+        const clockParts = clock.split(":");
+
+        const originalHour = Number(clockParts[0]) || 0;
+        const minutes = Number(clockParts[1]) || 0;
+
+        let hour = originalHour % 12;
+
+        if (meridiem === "PM") {
+          hour += 12;
+        }
+
+        return hour * 60 + minutes;
+      }
+
+      const parts = String(time).split(":");
+      const hour = Number(parts[0]) || 0;
+      const minutes = Number(parts[1]) || 0;
+
+      return hour * 60 + minutes;
+    }
+
+    function minutesToTime(totalMinutes) {
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+    }
+
+    function minutesToLabel(totalMinutes) {
+      const hour24 = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+      const meridiem = hour24 >= 12 ? "PM" : "AM";
+
+      let hour12 = hour24 % 12;
+
+      if (hour12 === 0) {
+        hour12 = 12;
+      }
+
+      return `${hour12}:${String(minutes).padStart(2, "0")} ${meridiem}`;
+    }
+
+    function overlaps(startA, endA, startB, endB) {
+      return Math.max(startA, startB) < Math.min(endA, endB);
+    }
+
+    function formatLessonLabel(index, total) {
+      if (!total) {
+        return `Lesson ${index}`;
+      }
+
+      return `Lesson ${index} of ${total}`;
+    }
+
+    // ============================================================
+    // Navigation
+    // ============================================================
+
+    const sections = {
+      dashboard: document.getElementById("dashboardSection"),
+      calendar: document.getElementById("calendarSection"),
+      students: document.getElementById("studentsSection")
+    };
+
+    const navButtons = {
+      dashboard: document.getElementById("navDashboardBtn"),
+      calendar: document.getElementById("navCalendarBtn"),
+      students: document.getElementById("navStudentsBtn")
+    };
+
+    function showSection(sectionName) {
+      Object.values(sections).forEach(section => {
+        section.classList.add("hidden-section");
+      });
+
+      Object.values(navButtons).forEach(button => {
+        button.classList.remove("active");
+      });
+
+      if (sections[sectionName]) {
+        sections[sectionName].classList.remove("hidden-section");
+      }
+
+      if (navButtons[sectionName]) {
+        navButtons[sectionName].classList.add("active");
+      }
+    }
+
+    navButtons.dashboard.addEventListener("click", () => {
+      showSection("dashboard");
+    });
+
+    navButtons.calendar.addEventListener("click", () => {
+      showSection("calendar");
+    });
+
+    navButtons.students.addEventListener("click", () => {
+      showSection("students");
+    });
+
+    // ============================================================
+    // Add Student Modal
+    // ============================================================
+
+    const addStudentModalOverlay = document.getElementById("addStudentModalOverlay");
+    const openAddStudentButton = document.getElementById("openAddStudentBtn");
+    const closeAddStudentModalButton = document.getElementById("closeAddStudentModalBtn");
+
+    function openAddStudentModal() {
+      addStudentModalOverlay.classList.remove("hidden");
+    }
+
+    function closeAddStudentModal() {
+      addStudentModalOverlay.classList.add("hidden");
+    }
+
+    openAddStudentButton.addEventListener("click", () => {
+      openAddStudentModal();
+    });
+
+    closeAddStudentModalButton.addEventListener("click", () => {
+      closeAddStudentModal();
+    });
+
+    addStudentModalOverlay.addEventListener("click", event => {
+      if (event.target === addStudentModalOverlay) {
+        closeAddStudentModal();
+      }
+    });
+
+    document.getElementById("addStudentBtn").addEventListener("click", () => {
+      const name = document.getElementById("newStudentName").value.trim();
+      const email = document.getElementById("newStudentEmail").value.trim();
+      const phone = document.getElementById("newStudentPhone").value.trim();
+      const lessonsPurchased = Number(document.getElementById("newStudentLessons").value || 4);
+      const message = document.getElementById("addStudentMsg");
+
+      if (!name) {
+        message.textContent = "Please enter a student name.";
+        return;
+      }
+
+      const store = loadStore();
+      const id = uid("student");
+
+      store.students[id] = {
+        id,
+        name,
+        email,
+        phone,
+        coachId: COACH_ID,
+        lessonsPurchased: Math.max(1, lessonsPurchased)
+      };
+
+      saveStore(store);
+
+      selectedStudentId = id;
+
+      document.getElementById("newStudentName").value = "";
+      document.getElementById("newStudentEmail").value = "";
+      document.getElementById("newStudentPhone").value = "";
+      document.getElementById("newStudentLessons").value = "4";
+
+      message.textContent = "Student added.";
+
+      closeAddStudentModal();
+
+      showSection("students");
+
+      renderAll();
+    });
+
+    // ============================================================
+    // Dashboard
+    // ============================================================
+
+    function getCoachStudents(store) {
+      return Object.values(store.students || {}).filter(
+        student => student.coachId === COACH_ID
+      );
+    }
+
+    function getCoachLessons(store) {
+      return (store.lessons || []).filter(lesson => lesson.coachId === COACH_ID);
+    }
+
+    function renderDashboard() {
+      const store = loadStore();
+      const students = getCoachStudents(store);
+      const lessons = getCoachLessons(store);
+
+      const now = new Date();
+      const weekStart = getWeekStart(now);
+      const weekEnd = addDays(weekStart, 7);
+
+      const lessonsThisWeek = lessons.filter(lesson => {
+        const lessonDate = new Date(`${lesson.date}T00:00:00`);
+        return lessonDate >= weekStart && lessonDate < weekEnd;
+      });
+
+      const hoursThisWeek = lessonsThisWeek.reduce((total, lesson) => {
+        return total + Number(lesson.duration || 30) / 60;
+      }, 0);
+
+      const upcomingLessons = lessons
+        .map(lesson => {
+          return { ...lesson, dateTime: new Date(`${lesson.date}T${lesson.start}`) };
+        })
+        .filter(lesson => lesson.dateTime >= now)
+        .sort((a, b) => a.dateTime - b.dateTime);
+
+      const nextLesson = upcomingLessons[0];
+
+      document.getElementById("dashboardStats").innerHTML = `
+        <div class="border rounded-lg p-3">
+          <p class="text-xs muted">Students</p>
+          <p class="text-xl font-bold">${students.length}</p>
+        </div>
+
+        <div class="border rounded-lg p-3">
+          <p class="text-xs muted">Lessons Scheduled</p>
+          <p class="text-xl font-bold">${lessons.length}</p>
+        </div>
+
+        <div class="border rounded-lg p-3">
+          <p class="text-xs muted">Hours This Week</p>
+          <p class="text-xl font-bold">${hoursThisWeek.toFixed(1)}</p>
+        </div>
+
+        <div class="border rounded-lg p-3">
+          <p class="text-xs muted">Next Lesson</p>
+          <p class="text-sm font-semibold">
+            ${
+              nextLesson
+                ? `${escapeHtml(nextLesson.date)} ${escapeHtml(nextLesson.start)}`
+                : "None scheduled"
+            }
+          </p>
+        </div>
+      `;
+
+      renderDashboardStudentSearch();
+    }
+
+    function renderDashboardStudentSearch() {
+      const store = loadStore();
+      const searchInput = document.getElementById("dashboardStudentSearch");
+      const resultsContainer = document.getElementById("dashboardStudentResults");
+
+      const search = String(searchInput.value || "").trim().toLowerCase();
+
+      const students = getCoachStudents(store)
+        .filter(student => {
+          if (!search) {
+            return false;
+          }
+
+          return (
+            String(student.name || "").toLowerCase().includes(search) ||
+            String(student.email || "").toLowerCase().includes(search) ||
+            String(student.phone || "").toLowerCase().includes(search)
+          );
+        })
+        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
+
+      if (!search) {
+        resultsContainer.innerHTML = `
+          <p class="muted text-sm">
+            Start typing a student's name, email, or phone number.
+          </p>
+        `;
+        return;
+      }
+
+      if (!students.length) {
+        resultsContainer.innerHTML = `
+          <p class="muted text-sm">
+            No students found.
+          </p>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = students
+        .map(student => {
+          const scheduledLessons = getStudentLessons(store, student.id).length;
+          const purchasedLessons = Number(student.lessonsPurchased || 0);
+
+          return `
+            <button
+              type="button"
+              data-dashboard-student-id="${escapeHtml(student.id)}"
+              class="w-full text-left border rounded-lg px-3 py-2 hover:bg-gray-50 border-gray-200"
+            >
+              <p class="font-semibold text-sm">${escapeHtml(student.name)}</p>
+              <p class="text-xs muted">${escapeHtml(student.email || "")}</p>
+              <p class="text-xs muted mt-1">
+                ${scheduledLessons}/${purchasedLessons} lessons scheduled
+              </p>
+            </button>
+          `;
+        })
+        .join("");
+
+      resultsContainer.querySelectorAll("[data-dashboard-student-id]").forEach(button => {
+        button.addEventListener("click", () => {
+          selectedStudentId = button.dataset.dashboardStudentId;
+          showSection("students");
+          renderStudentsList();
+          renderSelectedStudentPanel();
+        });
+      });
+    }
+
+    document.getElementById("dashboardStudentSearch").addEventListener("input", () => {
+      renderDashboardStudentSearch();
+    });
+
+    // ============================================================
+    // Students
+    // ============================================================
+
+    let selectedStudentId = null;
+
+    const studentsListElement = document.getElementById("studentsList");
+    const studentSearchElement = document.getElementById("studentSearch");
+    const selectedStudentPanel = document.getElementById("selectedStudentPanel");
+
+    function getStudentLessons(store, studentId) {
+      return (store.lessons || [])
+        .filter(lesson => lesson.studentId === studentId && lesson.coachId === COACH_ID)
+        .sort((a, b) => {
+          const first = `${a.date}T${a.start}`;
+          const second = `${b.date}T${b.start}`;
+          return first.localeCompare(second);
+        });
+    }
+
+    function getStudentNotes(store, studentId) {
+      return (store.notes || [])
+        .filter(note => note.studentId === studentId && note.coachId === COACH_ID)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    function getStudentMedia(store, studentId) {
+      return (store.media || [])
+        .filter(media => media.studentId === studentId && media.coachId === COACH_ID)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    function renderStudentsList() {
+      const store = loadStore();
+      const search = String(studentSearchElement.value || "").trim().toLowerCase();
+
+      const students = getCoachStudents(store)
+        .filter(student => {
+          if (!search) {
+            return true;
+          }
+
+          return (
+            String(student.name || "").toLowerCase().includes(search) ||
+            String(student.email || "").toLowerCase().includes(search) ||
+            String(student.phone || "").toLowerCase().includes(search)
+          );
+        })
+        .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
+
+      if (!students.length) {
+        studentsListElement.innerHTML = `
+          <p class="muted text-sm px-2 py-2">
+            No students found.
+          </p>
+        `;
+        return;
+      }
+
+      studentsListElement.innerHTML = students
+        .map(student => {
+          const scheduledLessons = getStudentLessons(store, student.id).length;
+          const purchasedLessons = Number(student.lessonsPurchased || 0);
+
+          return `
+            <button
+              type="button"
+              data-student-id="${escapeHtml(student.id)}"
+              class="w-full text-left border rounded-lg px-3 py-2 hover:bg-gray-50 ${
+                student.id === selectedStudentId ? "border-blue-300 bg-blue-50" : "border-gray-200"
+              }"
+            >
+              <p class="font-semibold text-sm">${escapeHtml(student.name)}</p>
+              <p class="text-xs muted">${escapeHtml(student.email || "")}</p>
+              <p class="text-xs muted mt-1">
+                ${scheduledLessons}/${purchasedLessons} lessons scheduled
+              </p>
+            </button>
+          `;
+        })
+        .join("");
+
+      studentsListElement.querySelectorAll("[data-student-id]").forEach(button => {
+        button.addEventListener("click", () => {
+          selectedStudentId = button.dataset.studentId;
+          renderStudentsList();
+          renderSelectedStudentPanel();
+        });
+      });
+    }
+
+    function findNextOpenSlot(store, startingDate, duration = 30) {
+      for (let offset = 0; offset < 90; offset += 1) {
+        const date = addDays(startingDate, offset);
+
+        if (date.getDay() === 6) {
+          continue;
+        }
+
+        for (let start = SLOT_START_MIN; start < SLOT_END_MIN; start += SLOT_MINUTES) {
+          if (isSlotOpenForCoach(store, date, start, start + duration)) {
+            return { date: ymd(date), time: minutesToTime(start) };
+          }
+        }
+      }
+
+      return { date: ymd(startingDate), time: "07:00" };
+    }
+
+    function renderSelectedStudentPanel() {
+      const store = loadStore();
+      const student = store.students?.[selectedStudentId];
+
+      if (!student) {
+        selectedStudentPanel.innerHTML = `
+          <div class="card p-5">
+            <p class="muted">
+              Select a student to view their profile, lessons, notes, photos, and videos.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const lessons = getStudentLessons(store, student.id);
+      const notes = getStudentNotes(store, student.id);
+      const media = getStudentMedia(store, student.id);
+
+      const purchasedLessons = Math.max(0, Number(student.lessonsPurchased || 0));
+      const scheduledLessons = lessons.length;
+      const nextLessonNumber = scheduledLessons + 1;
+
+      const progressPercent = purchasedLessons
+        ? Math.min(100, Math.round((scheduledLessons / purchasedLessons) * 100))
+        : 0;
+
+      const suggestedSlot = findNextOpenSlot(store, new Date(), 30);
+
+      selectedStudentPanel.innerHTML = `
+        <!-- Student Profile Header -->
+        <div class="card p-5 mb-4">
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold mb-1">${escapeHtml(student.name)}</h2>
+              <p class="text-sm muted">
+                ${escapeHtml(student.email || "")}
+                ${student.phone ? ` · ${escapeHtml(student.phone)}` : ""}
+              </p>
+            </div>
+
+            <div class="md:min-w-56">
+              <div class="flex items-center justify-between text-sm mb-1">
+                <span class="font-semibold">Lesson Progress</span>
+                <span>${scheduledLessons} of ${purchasedLessons}</span>
+              </div>
+
+              <div class="progress-track">
+                <div class="progress-bar" style="width: ${progressPercent}%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheduled Lessons -->
+        <div class="card p-5 mb-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-lg font-bold">Scheduled Lessons</h3>
+              <p class="text-xs muted">
+                Schedule lesson ${nextLessonNumber}${purchasedLessons ? ` of ${purchasedLessons}` : ""} next.
+              </p>
+            </div>
+
+            <span class="pill">${scheduledLessons} scheduled</span>
+          </div>
+
+          <div class="space-y-2 mb-5">
+            ${
+              lessons.length
+                ? lessons
+                    .map((lesson, index) => {
+                      const lessonDate = new Date(`${lesson.date}T${lesson.start}`);
+                      const isPast = lessonDate < new Date();
+
+                      return `
+                        <div class="border border-gray-200 rounded-lg px-3 py-3">
+                          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <div>
+                              <p class="font-semibold">
+                                ${formatLessonLabel(index + 1, purchasedLessons)}
+                              </p>
+
+                              <p class="text-sm muted">
+                                ${escapeHtml(lesson.date)} · ${escapeHtml(lesson.start)} ·
+                                ${Number(lesson.duration || 30)} minutes
+                              </p>
+
+                              <p class="text-xs ${isPast ? "text-gray-500" : "text-blue-600"} mt-1">
+                                ${isPast ? "Past lesson" : "Upcoming lesson"}
+                              </p>
+                            </div>
+
+                            <button
+                              type="button"
+                              data-remove-lesson="${escapeHtml(lesson.id)}"
+                              class="text-xs text-red-600 font-semibold"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      `;
+                    })
+                    .join("")
+                : `<p class="muted text-sm">No lessons scheduled yet.</p>`
+            }
+          </div>
+
+          <div class="border-t pt-4">
+            <h4 class="text-sm font-semibold mb-2">
+              Schedule Lesson ${nextLessonNumber}${purchasedLessons ? ` of ${purchasedLessons}` : ""}
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+              <input
+                id="scheduleDate"
+                type="date"
+                value="${escapeHtml(suggestedSlot.date)}"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              />
+
+              <input
+                id="scheduleTime"
+                type="time"
+                value="${escapeHtml(suggestedSlot.time)}"
+                step="1800"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              />
+
+              <select
+                id="scheduleDuration"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              >
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+                <option value="90">90 minutes</option>
+              </select>
+
+              <button
+                id="scheduleLessonBtn"
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+              >
+                Schedule
+              </button>
+            </div>
+
+            <p id="scheduleMessage" class="text-xs muted mt-2"></p>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="card p-5 mb-4">
+          <h3 class="text-lg font-bold mb-1">Lesson Notes</h3>
+
+          <p class="text-xs muted mb-3">
+            Add notes from the last lesson or any other student update.
+            Notes are automatically date and time stamped.
+          </p>
+
+          <textarea
+            id="newNoteText"
+            placeholder="Example: Worked on swing tempo and short-game setup..."
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm min-h-28"
+          ></textarea>
+
+          <button
+            id="addNoteBtn"
+            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+          >
+            Add Note
+          </button>
+
+          <div class="space-y-2 mt-4 max-h-96 overflow-auto">
+            ${
+              notes.length
+                ? notes
+                    .map(note => {
+                      return `
+                        <div class="border border-gray-200 rounded-lg p-3 bg-amber-50">
+                          <p class="text-sm whitespace-pre-wrap">${escapeHtml(note.text)}</p>
+                          <p class="text-xs muted mt-2">Added ${formatDateTime(note.createdAt)}</p>
+                          <button
+                            type="button"
+                            data-remove-note="${escapeHtml(note.id)}"
+                            class="text-xs text-red-600 font-semibold mt-2"
+                          >
+                            Delete Note
+                          </button>
+                        </div>
+                      `;
+                    })
+                    .join("")
+                : `<p class="muted text-sm">No notes have been added yet.</p>`
+            }
+          </div>
+        </div>
+
+        <!-- Photos and Videos -->
+        <div class="card p-5 mb-4">
+          <h3 class="text-lg font-bold mb-1">Photos and Videos</h3>
+
+          <p class="text-xs muted mb-3">
+            Upload photos or videos from your phone. Each upload is automatically date and time stamped.
+          </p>
+
+          <input
+            id="newMediaFile"
+            type="file"
+            accept="image/*,video/*"
+            capture="environment"
+            class="w-full border border-gray-300 rounded-lg px-2 py-2 text-xs bg-white"
+          />
+
+          <button
+            id="addMediaBtn"
+            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold"
+          >
+            Upload Photo or Video
+          </button>
+
+          <p id="mediaMessage" class="text-xs muted mt-2"></p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+            ${
+              media.length
+                ? media
+                    .map(item => {
+                      const isVideo = item.type === "video";
+
+                      return `
+                        <div class="border border-gray-200 rounded-lg p-2">
+                          ${
+                            isVideo
+                              ? `<video src="${item.url}" class="media-thumb" controls></video>`
+                              : `<img src="${item.url}" class="media-thumb" alt="${escapeHtml(
+                                  item.name || "Photo"
+                                )}" />`
+                          }
+
+                          <p class="text-xs font-semibold truncate mt-2">
+                            ${escapeHtml(item.name || "Upload")}
+                          </p>
+
+                          <p class="text-xs muted">Added ${formatDateTime(item.createdAt)}</p>
+
+                          <button
+                            type="button"
+                            data-remove-media="${escapeHtml(item.id)}"
+                            class="text-xs text-red-600 font-semibold mt-2"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      `;
+                    })
+                    .join("")
+                : `<p class="muted text-sm col-span-full">No photos or videos have been uploaded yet.</p>`
+            }
+          </div>
+        </div>
+      `;
+
+      setupStudentPanelEvents(student);
+    }
+
+    function setupStudentPanelEvents(student) {
+      const scheduleButton = document.getElementById("scheduleLessonBtn");
+
+      scheduleButton.addEventListener("click", () => {
+        const date = document.getElementById("scheduleDate").value;
+        const time = document.getElementById("scheduleTime").value;
+        const duration = Number(document.getElementById("scheduleDuration").value || 30);
+        const message = document.getElementById("scheduleMessage");
+
+        if (!date || !time) {
+          message.textContent = "Please select a date and time.";
+          return;
+        }
+
+        const store = loadStore();
+        const day = new Date(`${date}T00:00:00`);
+        const startMinutes = timeToMinutes(time);
+
+        if (!isSlotOpenForCoach(store, day, startMinutes, startMinutes + duration)) {
+          message.textContent = "That time is unavailable. Please choose another time.";
+          return;
+        }
+
+        store.lessons.push({
+          id: uid("lesson"),
+          studentId: student.id,
+          coachId: COACH_ID,
+          date,
+          start: time,
+          duration,
+          title: "Coach Booked Lesson",
+          createdBy: "coach",
+          createdAt: new Date().toISOString()
+        });
+
+        saveStore(store);
+        renderAll();
+
+        selectedStudentId = student.id;
+        renderStudentsList();
+        renderSelectedStudentPanel();
+      });
+
+      document.querySelectorAll("[data-remove-lesson]").forEach(button => {
+        button.addEventListener("click", () => {
+          const lessonId = button.dataset.removeLesson;
+
+          if (!confirm("Cancel this lesson?")) {
+            return;
+          }
+
+          const store = loadStore();
+          store.lessons = store.lessons.filter(lesson => lesson.id !== lessonId);
+          saveStore(store);
+          renderAll();
+        });
+      });
+
+      document.getElementById("addNoteBtn").addEventListener("click", () => {
+        const noteText = document.getElementById("newNoteText").value.trim();
+
+        if (!noteText) {
+          return;
+        }
+
+        const store = loadStore();
+
+        store.notes.unshift({
+          id: uid("note"),
+          studentId: student.id,
+          coachId: COACH_ID,
+          text: noteText,
+          createdAt: new Date().toISOString()
+        });
+
+        saveStore(store);
+        renderAll();
+      });
+
+      document.querySelectorAll("[data-remove-note]").forEach(button => {
+        button.addEventListener("click", () => {
+          const noteId = button.dataset.removeNote;
+
+          if (!confirm("Delete this note?")) {
+            return;
+          }
+
+          const store = loadStore();
+          store.notes = store.notes.filter(note => note.id !== noteId);
+          saveStore(store);
+          renderAll();
+        });
+      });
+
+      document.getElementById("addMediaBtn").addEventListener("click", () => {
+        const fileInput = document.getElementById("newMediaFile");
+        const message = document.getElementById("mediaMessage");
+        const file = fileInput.files?.[0];
+
+        if (!file) {
+          message.textContent = "Please choose a photo or video first.";
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          const store = loadStore();
+
+          store.media.unshift({
+            id: uid("media"),
+            studentId: student.id,
+            coachId: COACH_ID,
+            name: file.name,
+            url: reader.result,
+            type: file.type.startsWith("video") ? "video" : "photo",
+            createdAt: new Date().toISOString()
+          });
+
+          saveStore(store);
+          renderAll();
+        };
+
+        reader.onerror = () => {
+          message.textContent = "The file could not be read.";
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      document.querySelectorAll("[data-remove-media]").forEach(button => {
+        button.addEventListener("click", () => {
+          const mediaId = button.dataset.removeMedia;
+
+          if (!confirm("Delete this photo or video?")) {
+            return;
+          }
+
+          const store = loadStore();
+          store.media = store.media.filter(item => item.id !== mediaId);
+          saveStore(store);
+          renderAll();
+        });
+      });
+    }
+
+    document.getElementById("studentSearch").addEventListener("input", () => {
+      renderStudentsList();
+    });
+
+    // ============================================================
+    // Calendar
+    // ============================================================
+
+    const SLOT_START_MIN = 7 * 60;
+    const SLOT_END_MIN = 14 * 60;
+    const SLOT_MINUTES = 30;
+
+    const calendarGrid = document.getElementById("calendarGrid");
+    const monthHeaders = document.getElementById("monthHeaders");
+    const weekHeaders = document.getElementById("weekHeaders");
+    const selectedDateLabel = document.getElementById("selectedDateLabel");
+    const selectedDayEvents = document.getElementById("selectedDayEvents");
+    const rangeLabel = document.getElementById("rangeLabel");
+    const dayTimeline = document.getElementById("dayTimeline");
+
+    const dayViewButton = document.getElementById("dayViewBtn");
+    const weekViewButton = document.getElementById("weekViewBtn");
+    const monthViewButton = document.getElementById("monthViewBtn");
+    const previousButton = document.getElementById("prevBtn");
+    const nextButton = document.getElementById("nextBtn");
+    const coachDurationElement = document.getElementById("coachDuration");
+
+    const today = new Date();
+
+    let selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    let currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    let calendarView = "month";
+
+    function getCoachLessonsForDay(store, dateKey) {
+      return (store.lessons || []).filter(
+        lesson => lesson.coachId === COACH_ID && lesson.date === dateKey
+      );
+    }
+
+    function getCoachBlocksForDay(store, dateKey) {
+      return (store.coachBlocks || []).filter(
+        block => block.coachId === COACH_ID && block.date === dateKey
+      );
+    }
+
+    function isSlotOpenForCoach(store, date, startMinutes, endMinutes) {
+      if (date.getDay() === 6) {
+        return false;
+      }
+
+      if (startMinutes < SLOT_START_MIN) {
+        return false;
+      }
+
+      if (endMinutes > SLOT_END_MIN) {
+        return false;
+      }
+
+      const dateKey = ymd(date);
+      const blocks = getCoachBlocksForDay(store, dateKey);
+
+      for (const block of blocks) {
+        const blockStart = timeToMinutes(block.start);
+        const blockEnd = timeToMinutes(block.end);
+
+        if (overlaps(startMinutes, endMinutes, blockStart, blockEnd)) {
+          return false;
+        }
+      }
+
+      const lessons = getCoachLessonsForDay(store, dateKey);
+
+      for (const lesson of lessons) {
+        const lessonStart = timeToMinutes(lesson.start);
+        const lessonEnd = lessonStart + Number(lesson.duration || 30);
+
+        if (overlaps(startMinutes, endMinutes, lessonStart, lessonEnd)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function getDayStatus(store, date) {
+      if (date.getDay() === 6) {
+        return "unavailable";
+      }
+
+      for (let time = SLOT_START_MIN; time < SLOT_END_MIN; time += SLOT_MINUTES) {
+        if (isSlotOpenForCoach(store, date, time, time + SLOT_MINUTES)) {
+          return "available";
+        }
+      }
+
+      return "unavailable";
+    }
+
+    function setActiveCalendarButton() {
+      dayViewButton.classList.remove("active");
+      weekViewButton.classList.remove("active");
+      monthViewButton.classList.remove("active");
+
+      if (calendarView === "day") {
+        dayViewButton.classList.add("active");
+      }
+
+      if (calendarView === "week") {
+        weekViewButton.classList.add("active");
+      }
+
+      if (calendarView === "month") {
+        monthViewButton.classList.add("active");
+      }
+    }
+
+    function renderRangeLabel() {
+      if (calendarView === "month") {
+        rangeLabel.textContent = monthName(currentDate.getFullYear(), currentDate.getMonth());
+        return;
+      }
+
+      if (calendarView === "week") {
+        const start = getWeekStart(currentDate);
+        const end = addDays(start, 6);
+        rangeLabel.textContent = `${shortDate(start)} - ${shortDate(end)}`;
+        return;
+      }
+
+      rangeLabel.textContent = currentDate.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function renderCalendarHeaders() {
+      if (calendarView === "month") {
+        monthHeaders.classList.remove("hidden");
+        weekHeaders.classList.add("hidden");
+        return;
+      }
+
+      if (calendarView === "week") {
+        monthHeaders.classList.add("hidden");
+        weekHeaders.classList.remove("hidden");
+
+        const start = getWeekStart(currentDate);
+        weekHeaders.innerHTML = "";
+
+        for (let index = 0; index < 7; index += 1) {
+          const date = addDays(start, index);
+          const header = document.createElement("div");
+          header.className = "cal-dow";
+          header.textContent = date.toLocaleDateString(undefined, {
+            weekday: "short",
+            month: "short",
+            day: "numeric"
+          });
+          weekHeaders.appendChild(header);
+        }
+
+        return;
+      }
+
+      monthHeaders.classList.add("hidden");
+      weekHeaders.classList.add("hidden");
+    }
+
+    function renderDayCard(date, options = {}) {
+      const { otherMonth = false } = options;
+      const store = loadStore();
+      const dateKey = ymd(date);
+      const status = getDayStatus(store, date);
+      const lessonCount = getCoachLessonsForDay(store, dateKey).length;
+
+      const button = document.createElement("button");
+      button.type = "button";
+
+      button.className = [
+        "cal-day",
+        status === "available" ? "available-day" : "unavailable-day",
+        otherMonth ? "other-month" : "",
+        isSameDay(date, today) ? "today" : "",
+        isSameDay(date, selectedDate) ? "selected" : ""
+      ].join(" ");
+
+      button.innerHTML = `
+        <div class="cal-daynum">${date.getDate()}</div>
+        ${
+          lessonCount
+            ? `<div class="text-xs text-blue-700 font-semibold">${lessonCount} booked</div>`
+            : ""
+        }
+      `;
+
+      button.addEventListener("click", () => {
+        selectedDate = cloneDate(date);
+
+        if (calendarView === "month") {
+          calendarView = "day";
+          currentDate = cloneDate(date);
+        }
+
+        renderCalendar();
+        renderSelectedDay();
+      });
+
+      return button;
+    }
+
+    function renderCalendar() {
+      calendarGrid.innerHTML = "";
+
+      renderRangeLabel();
+      renderCalendarHeaders();
+      setActiveCalendarButton();
+
+      if (calendarView === "month") {
+        calendarGrid.className = "calendar-grid";
+
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const firstDay = new Date(year, month, 1);
+        const startingDay = firstDay.getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const previousMonthDays = new Date(year, month, 0).getDate();
+
+        const cells = [];
+
+        for (let index = startingDay - 1; index >= 0; index -= 1) {
+          cells.push({
+            date: new Date(year, month - 1, previousMonthDays - index),
+            otherMonth: true
+          });
+        }
+
+        for (let day = 1; day <= daysInMonth; day += 1) {
+          cells.push({ date: new Date(year, month, day), otherMonth: false });
+        }
+
+        let nextMonthDay = 1;
+
+        while (cells.length < 42) {
+          cells.push({ date: new Date(year, month + 1, nextMonthDay), otherMonth: true });
+          nextMonthDay += 1;
+        }
+
+        cells.forEach(cell => {
+          calendarGrid.appendChild(renderDayCard(cell.date, { otherMonth: cell.otherMonth }));
+        });
+      }
+
+      if (calendarView === "week") {
+        calendarGrid.className = "week-grid";
+        const start = getWeekStart(currentDate);
+
+        for (let index = 0; index < 7; index += 1) {
+          calendarGrid.appendChild(renderDayCard(addDays(start, index)));
+        }
+      }
+
+      if (calendarView === "day") {
+        calendarGrid.className = "day-grid";
+        calendarGrid.appendChild(renderDayCard(currentDate));
+      }
+
+      renderDayTimeline();
+    }
+
+    function renderSelectedDay() {
+      const store = loadStore();
+      const day = calendarView === "day" ? currentDate : selectedDate;
+      const dateKey = ymd(day);
+      const lessons = getCoachLessonsForDay(store, dateKey);
+
+      selectedDateLabel.textContent =
+        `${day.toLocaleDateString(undefined, {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        })} - Appointments`;
+
+      if (!lessons.length) {
+        selectedDayEvents.innerHTML = `<p class="muted">No lessons scheduled.</p>`;
+        return;
+      }
+
+      selectedDayEvents.innerHTML = lessons
+        .sort((a, b) => a.start.localeCompare(b.start))
+        .map(lesson => {
+          const student = store.students?.[lesson.studentId];
+
+          return `
+            <div class="border border-gray-200 rounded-lg px-3 py-3">
+              <p class="font-semibold">${escapeHtml(lesson.title || "Lesson")}</p>
+              <p class="text-xs muted mt-1">
+                ${escapeHtml(lesson.start)} · ${Number(lesson.duration || 30)} minutes ·
+                ${escapeHtml(student?.name || "Unknown student")}
+              </p>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function renderDayTimeline() {
+      const store = loadStore();
+      const day = calendarView === "day" ? currentDate : selectedDate;
+
+      if (day.getDay() === 6) {
+        dayTimeline.innerHTML = `<p class="text-red-700 font-semibold">Saturday is unavailable.</p>`;
+        return;
+      }
+
+      const dateKey = ymd(day);
+      const duration = Number(coachDurationElement.value || 30);
+
+      const lessons = getCoachLessonsForDay(store, dateKey).map(lesson => {
+        return { ...lesson, startMinutes: timeToMinutes(lesson.start) };
+      });
+
+      const rows = [];
+
+      for (let time = SLOT_START_MIN; time < SLOT_END_MIN; time += SLOT_MINUTES) {
+        const label = minutesToLabel(time);
+        const bookedLesson = lessons.find(lesson => lesson.startMinutes === time);
+        const open = isSlotOpenForCoach(store, day, time, time + duration);
+
+        if (bookedLesson) {
+          const student = store.students?.[bookedLesson.studentId];
+
+          rows.push(`
+            <div class="timeline-row timeline-booked">
+              <div>
+                <span class="timeline-time">${label}</span>
+                <span class="ml-2">${escapeHtml(student?.name || "Booked")}</span>
+              </div>
+              <span class="timeline-status status-booked">${Number(bookedLesson.duration || 30)}m</span>
+            </div>
+          `);
+        } else if (open) {
+          rows.push(`
+            <button type="button" data-open-slot="${time}" class="timeline-row timeline-open w-full text-left">
+              <div>
+                <span class="timeline-time">${label}</span>
+                <span class="ml-2">Open (${duration}m)</span>
+              </div>
+              <span class="timeline-status status-open">Book</span>
+            </button>
+          `);
+        } else {
+          rows.push(`
+            <div class="timeline-row timeline-blocked">
+              <div>
+                <span class="timeline-time">${label}</span>
+                <span class="ml-2">Unavailable</span>
+              </div>
+              <span class="timeline-status status-blocked">Blocked</span>
+            </div>
+          `);
+        }
+      }
+
+      dayTimeline.innerHTML = rows.join("");
+
+      dayTimeline.querySelectorAll("[data-open-slot]").forEach(button => {
+        button.addEventListener("click", () => {
+          quickBook(Number(button.dataset.openSlot));
+        });
+      });
+    }
+
+    function quickBook(startMinutes) {
+      const store = loadStore();
+      const students = getCoachStudents(store);
+
+      if (!students.length) {
+        alert("Add a student first.");
+        return;
+      }
+
+      const studentList = students.map((student, index) => `${index + 1}. ${student.name}`).join("\n");
+      const selection = prompt(`Choose a student number:\n\n${studentList}`);
+
+      if (selection === null) {
+        return;
+      }
+
+      const studentIndex = Number(selection) - 1;
+
+      if (!Number.isInteger(studentIndex) || studentIndex < 0 || studentIndex >= students.length) {
+        return;
+      }
+
+      const student = students[studentIndex];
+      const duration = Number(coachDurationElement.value || 30);
+      const day = calendarView === "day" ? currentDate : selectedDate;
+
+      if (!isSlotOpenForCoach(store, day, startMinutes, startMinutes + duration)) {
+        alert("That time is unavailable.");
+        return;
+      }
+
+      store.lessons.push({
+        id: uid("lesson"),
+        studentId: student.id,
+        coachId: COACH_ID,
+        date: ymd(day),
+        start: minutesToTime(startMinutes),
+        duration,
+        title: "Coach Booked Lesson",
+        createdBy: "coach",
+        createdAt: new Date().toISOString()
+      });
+
+      saveStore(store);
+      renderAll();
+
+      alert("Lesson booked.");
+    }
+
+    dayViewButton.addEventListener("click", () => {
+      calendarView = "day";
+      currentDate = cloneDate(selectedDate);
+      renderCalendar();
+      renderSelectedDay();
+    });
+
+    weekViewButton.addEventListener("click", () => {
+      calendarView = "week";
+      currentDate = cloneDate(selectedDate);
+      renderCalendar();
+      renderSelectedDay();
+    });
+
+    monthViewButton.addEventListener("click", () => {
+      calendarView = "month";
+      currentDate = cloneDate(selectedDate);
+      renderCalendar();
+      renderSelectedDay();
+    });
+
+    previousButton.addEventListener("click", () => {
+      if (calendarView === "month") {
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+      } else if (calendarView === "week") {
+        currentDate = addDays(currentDate, -7);
+      } else {
+        currentDate = addDays(currentDate, -1);
+        selectedDate = cloneDate(currentDate);
+      }
+
+      renderCalendar();
+      renderSelectedDay();
+    });
+
+    nextButton.addEventListener("click", () => {
+      if (calendarView === "month") {
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+      } else if (calendarView === "week") {
+        currentDate = addDays(currentDate, 7);
+      } else {
+        currentDate = addDays(currentDate, 1);
+        selectedDate = cloneDate(currentDate);
+      }
+
+      renderCalendar();
+      renderSelectedDay();
+    });
+
+    coachDurationElement.addEventListener("change", () => {
+      renderDayTimeline();
+    });
+
+    // ============================================================
+    // Availability Blocks
+    // ============================================================
+
+    const blockDateElement = document.getElementById("blockDate");
+    const blockStartElement = document.getElementById("blockStart");
+    const blockEndElement = document.getElementById("blockEnd");
+    const addBlockButton = document.getElementById("addBlockBtn");
+    const blockMessage = document.getElementById("blockMsg");
+    const blocksListElement = document.getElementById("blocksList");
+    const clearBlocksButton = document.getElementById("clearBlocksBtn");
+
+    blockDateElement.value = ymd(today);
+
+    function renderBlocksList() {
+      const store = loadStore();
+
+      const blocks = (store.coachBlocks || [])
+        .filter(block => block.coachId === COACH_ID)
+        .sort((a, b) => `${a.date}${a.start}`.localeCompare(`${b.date}${b.start}`));
+
+      if (!blocks.length) {
+        blocksListElement.innerHTML = `<p class="muted">No blocks added.</p>`;
+        return;
+      }
+
+      blocksListElement.innerHTML = blocks
+        .map(block => {
+          return `
+            <div class="border border-gray-200 rounded-lg px-3 py-3 flex justify-between items-center gap-2">
+              <p>${escapeHtml(block.date)} ${escapeHtml(block.start)} - ${escapeHtml(block.end)}</p>
+              <button
+                type="button"
+                data-delete-block="${escapeHtml(block.id)}"
+                class="text-xs text-red-600 font-semibold"
+              >
+                Delete
+              </button>
+            </div>
+          `;
+        })
+        .join("");
+
+      blocksListElement.querySelectorAll("[data-delete-block]").forEach(button => {
+        button.addEventListener("click", () => {
+          const store = loadStore();
+          store.coachBlocks = store.coachBlocks.filter(
+            block => block.id !== button.dataset.deleteBlock
+          );
+          saveStore(store);
+          renderAll();
+        });
+      });
+    }
+
+    addBlockButton.addEventListener("click", () => {
+      const date = blockDateElement.value;
+      const start = blockStartElement.value;
+      const end = blockEndElement.value;
+
+      if (!date || !start || !end || end <= start) {
+        blockMessage.textContent = "Please enter a valid date and time range.";
+        return;
+      }
+
+      const store = loadStore();
+
+      store.coachBlocks.push({
+        id: uid("block"),
+        coachId: COACH_ID,
+        date,
+        start,
+        end,
+        createdAt: new Date().toISOString()
+      });
+
+      saveStore(store);
+
+      blockMessage.textContent = "Availability block added.";
+
+      renderAll();
+    });
+
+    clearBlocksButton.addEventListener("click", () => {
+      if (!confirm("Clear all availability blocks?")) {
+        return;
+      }
+
+      const store = loadStore();
+      store.coachBlocks = store.coachBlocks.filter(block => block.coachId !== COACH_ID);
+      saveStore(store);
+      renderAll();
+    });
+
+    // ============================================================
+    // Rendering and Synchronization
+    // ============================================================
+
+    function renderAll() {
+      renderDashboard();
+      renderStudentsList();
+      renderSelectedStudentPanel();
+      renderCalendar();
+      renderSelectedDay();
+      renderDayTimeline();
+      renderBlocksList();
+    }
+
+    window.addEventListener("storage", event => {
+      if (event.key === STORE_KEY || event.key === `${STORE_KEY}_tick`) {
+        renderAll();
+      }
+    });
+
+    // Start application
+    renderAll();
+    showSection("dashboard");
+  </script>
+</body>
+</html>
