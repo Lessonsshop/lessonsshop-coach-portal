@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessons Shop - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        .login-container { min-height: 100vh; background: white; }
+        .transition-smooth { transition: all 0.3s ease; }
+        .form-input { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; font-size: 14px; }
+        .form-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .btn-primary { background: #2563eb; color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary { background: white; color: #2563eb; padding: 12px 24px; border-radius: 8px; font-weight: 600; border: 2px solid #2563eb; transition: all 0.3s ease; }
+        .btn-secondary:hover { background: #eff6ff; }
+        .error-message { color: #dc2626; font-size: 14px; margin-top: 4px; }
+        .success-message { color: #16a34a; font-size: 14px; margin-top: 4px; }
+        .logo-img { width: 160px; height: 160px; object-fit: contain; }
+    </style>
+</head>
+<body class="login-container">
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="w-full max-w-md">
+            <!-- Logo/Brand -->
+            <div class="text-center mb-8">
+                <div class="flex justify-center mb-4">
+                    <!-- Lessons Shop Golf Logo -->
+                    <img src="Lessonsshop updated logo.jpg" alt="Lessons Shop Logo" class="logo-img">
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Lessons Shop</h1>
+                <p class="text-gray-600">Coach Portal Access</p>
+            </div>
+
+            <!-- Coach Login Card -->
+<div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+    <div class="text-center mb-6">
+        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+            <i class="fas fa-chalkboard-user"></i>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-900">
+            Coach Sign In
+        </h2>
+
+        <p class="text-sm text-gray-600 mt-1">
+            Sign in to manage students, lessons, notes, photos, and videos.
+        </p>
+    </div>
+
+    <form id="coachForm" onsubmit="handleCoachLogin(event)">
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-900 mb-2">
+                    Coach Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="coachEmail"
+                    placeholder="coach@email.com"
+                    class="form-input w-full"
+                    required
+                >
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-900 mb-2">
+                    Password
+                </label>
+
+                <div class="relative">
+                    <input
+                        type="password"
+                        id="coachPassword"
+                        placeholder="••••••••"
+                        class="form-input w-full"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        onclick="togglePassword('coachPassword')"
+                        class="absolute right-3 top-3 text-gray-500"
+                        aria-label="Show or hide password"
+                    >
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <label class="flex items-center">
+                <input
+                    type="checkbox"
+                    class="w-4 h-4 text-blue-600 rounded"
+                >
+
+                <span class="ml-2 text-sm text-gray-600">
+                    Remember me
+                </span>
+            </label>
+
+            <button type="submit" class="btn-primary w-full">
+                Sign In
+            </button>
+
+            <p
+                id="loginMessage"
+                class="error-message hidden"
+            ></p>
+        </div>
+    </form>
+</div>
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="text-center mt-6 pt-6 border-t">
+                    <p class="text-gray-600">Don't have an account? <a href="#" class="text-blue-600 font-semibold hover:text-blue-700">Sign up here</a></p>
+                </div>
+            </div>
+
+            <!-- Demo Credentials -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-gray-800 text-sm">
+                <p class="font-semibold mb-2"><i class="fas fa-lightbulb mr-2 text-blue-600"></i>Demo Credentials:</p>
+                <p><strong>Student:</strong> student@example.com / lessons123</p>
+                <p><strong>Coach:</strong> coach@example.com / lessons123</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+
+        field.type = field.type === "password"
+            ? "text"
+            : "password";
+    }
+
+    function handleCoachLogin(event) {
+        event.preventDefault();
+
+        const email = document
+            .getElementById("coachEmail")
+            .value
+            .trim();
+
+        const password = document
+            .getElementById("coachPassword")
+            .value;
+
+        const loginMessage = document.getElementById("loginMessage");
+
+        loginMessage.classList.add("hidden");
+        loginMessage.textContent = "";
+
+        if (
+            email === "coach@example.com" &&
+            password === "lessons123"
+        ) {
+            window.location.href = "coach-portal.html";
+            return;
+        }
+
+        loginMessage.textContent =
+            "The email address or password is incorrect.";
+
+        loginMessage.classList.remove("hidden");
+    }
+</script>
+</body>
+</html>
