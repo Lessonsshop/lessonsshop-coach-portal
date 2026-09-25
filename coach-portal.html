@@ -150,6 +150,11 @@
       border-color: #fca5a5;
     }
 
+    .timeline-completed {
+      background: #f0fdfa;
+      border-color: #99f6e4;
+    }
+
     .timeline-time {
       font-weight: 700;
       min-width: 76px;
@@ -174,6 +179,12 @@
       color: #1d4ed8;
       background: #dbeafe;
       border: 1px solid #93c5fd;
+    }
+
+    .status-completed {
+      color: #0f766e;
+      background: #ccfbf1;
+      border: 1px solid #5eead4;
     }
 
     .status-blocked {
@@ -269,7 +280,7 @@
       <div class="card p-5 mb-4">
         <h2 class="text-2xl font-bold mb-1">Dashboard</h2>
         <p class="muted mb-4">
-          Overview of your students, lessons, and weekly hours.
+          Overview of completed lessons and estimated revenue.
         </p>
 
         <div
@@ -532,6 +543,9 @@
     const SLOT_START_MIN = 7 * 60;
     const SLOT_END_MIN = 14 * 60;
     const SLOT_MINUTES = 30;
+    const LESSON_STATUS_SCHEDULED = "scheduled";
+    const LESSON_STATUS_COMPLETED = "completed";
+    const LESSON_VALUE = 50;
 
     const state = {
       user: null,
@@ -774,6 +788,12 @@
       return state.lessons.filter(lesson => lesson.lesson_date === dateKey);
     }
 
+    function getLessonStatus(lesson) {
+      return lesson.status === LESSON_STATUS_COMPLETED
+        ? LESSON_STATUS_COMPLETED
+        : LESSON_STATUS_SCHEDULED;
+    }
+
     function getDayBlocks(dateKey) {
       return state.blocks.filter(block => block.block_date === dateKey);
     }
@@ -810,49 +830,41 @@
 
     function renderDashboard() {
       const now = new Date();
-      const weekStart = getWeekStart(now);
-      const weekEnd = addDays(weekStart, 7);
-
-      const lessonsThisWeek = state.lessons.filter(lesson => {
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const yearStart = new Date(now.getFullYear(), 0, 1);
+      const completedLessons = state.lessons.filter(
+        lesson => getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
+      );
+      const mtdLessons = completedLessons.filter(lesson => {
         const date = new Date(`${lesson.lesson_date}T00:00:00`);
-        return date >= weekStart && date < weekEnd;
+        return date >= monthStart && date <= now;
       });
-
-      const hoursThisWeek = lessonsThisWeek.reduce((total, lesson) => {
-        return total + Number(lesson.duration_minutes || 30) / 60;
-      }, 0);
-
-      const upcoming = state.lessons
-        .map(lesson => ({
-          ...lesson,
-          dateTime: new Date(`${lesson.lesson_date}T${lesson.start_time}`)
-        }))
-        .filter(lesson => lesson.dateTime >= now)
-        .sort((a, b) => a.dateTime - b.dateTime);
-
-      const next = upcoming[0];
+      const ytdLessons = completedLessons.filter(lesson => {
+        const date = new Date(`${lesson.lesson_date}T00:00:00`);
+        return date >= yearStart && date <= now;
+      });
+      const monthlyRevenue = mtdLessons.length * LESSON_VALUE;
+      const annualRevenue = ytdLessons.length * LESSON_VALUE;
 
       document.getElementById("dashboardStats").innerHTML = `
         <div class="border rounded-lg p-3">
-          <p class="text-xs muted">Students</p>
-          <p class="text-xl font-bold">${state.students.length}</p>
+          <p class="text-xs muted">Month-to-Date Lessons</p>
+          <p class="text-xl font-bold">${mtdLessons.length}</p>
         </div>
 
         <div class="border rounded-lg p-3">
-          <p class="text-xs muted">Lessons Scheduled</p>
-          <p class="text-xl font-bold">${state.lessons.length}</p>
+          <p class="text-xs muted">Year-to-Date Lessons</p>
+          <p class="text-xl font-bold">${ytdLessons.length}</p>
         </div>
 
         <div class="border rounded-lg p-3">
-          <p class="text-xs muted">Hours This Week</p>
-          <p class="text-xl font-bold">${hoursThisWeek.toFixed(1)}</p>
+          <p class="text-xs muted">Estimated Monthly Revenue</p>
+          <p class="text-xl font-bold">$${monthlyRevenue.toLocaleString()}</p>
         </div>
 
         <div class="border rounded-lg p-3">
-          <p class="text-xs muted">Next Lesson</p>
-          <p class="text-sm font-semibold">
-            ${next ? `${escapeHtml(next.lesson_date)} ${escapeHtml(next.start_time)}` : "None scheduled"}
-          </p>
+          <p class="text-xs muted">Estimated Annual Revenue</p>
+          <p class="text-xl font-bold">$${annualRevenue.toLocaleString()}</p>
         </div>
       `;
 
@@ -1007,6 +1019,49 @@
             ${student.phone ? ` · ${escapeHtml(student.phone)}` : ""}
           </p>
 
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+            <input
+              id="profileEditName"
+              type="text"
+              value="${escapeHtml(student.name)}"
+              class="border rounded-lg px-3 py-2 text-sm"
+              placeholder="Full name"
+            />
+            <input
+              id="profileEditEmail"
+              type="email"
+              value="${escapeHtml(student.email || "")}"
+              class="border rounded-lg px-3 py-2 text-sm"
+              placeholder="Email"
+            />
+            <input
+              id="profileEditPhone"
+              type="text"
+              value="${escapeHtml(student.phone || "")}"
+              class="border rounded-lg px-3 py-2 text-sm"
+              placeholder="Phone"
+            />
+            <input
+              id="profileEditLessonsPurchased"
+              type="number"
+              min="1"
+              value="${Math.max(1, Number(student.lessons_purchased || 1))}"
+              class="border rounded-lg px-3 py-2 text-sm"
+              placeholder="Lessons Purchased"
+            />
+          </div>
+
+          <div class="flex items-center gap-3 mt-2">
+            <button
+              id="profileSaveStudentBtn"
+              type="button"
+              class="bg-blue-600 text-white rounded-lg px-4 py-2 text-sm font-semibold"
+            >
+              Save Contact Info
+            </button>
+            <p id="profileEditStudentMessage" class="text-xs muted"></p>
+          </div>
+
           <div class="mt-4">
             <div class="flex justify-between text-sm mb-1">
               <span>Lesson Progress</span>
@@ -1039,15 +1094,39 @@
                             ·
                             ${lesson.duration_minutes} minutes
                           </p>
+                          <p class="text-xs mt-1">
+                            <span class="status ${
+                              getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
+                                ? "status-completed"
+                                : "status-booked"
+                            }">
+                              ${getLessonStatus(lesson) === LESSON_STATUS_COMPLETED ? "Completed" : "Scheduled"}
+                            </span>
+                          </p>
                         </div>
 
-                        <button
-                          type="button"
-                          data-delete-lesson="${lesson.id}"
-                          class="text-xs text-red-600 font-semibold"
-                        >
-                          Cancel
-                        </button>
+                        <div class="text-right space-y-1">
+                          ${
+                            getLessonStatus(lesson) === LESSON_STATUS_SCHEDULED
+                              ? `
+                                <button
+                                  type="button"
+                                  data-complete-lesson="${lesson.id}"
+                                  class="block w-full text-xs text-teal-700 font-semibold"
+                                >
+                                  Mark Complete
+                                </button>
+                              `
+                              : ""
+                          }
+                          <button
+                            type="button"
+                            data-delete-lesson="${lesson.id}"
+                            class="block w-full text-xs text-red-600 font-semibold"
+                          >
+                            Cancel
+                          </button>
+                        </div>
                       </div>
                     `)
                     .join("")
@@ -1128,7 +1207,6 @@
             id="profileMediaFile"
             type="file"
             accept="image/*,video/*"
-            capture="environment"
             class="w-full border rounded-lg px-3 py-2 text-sm"
           />
 
@@ -1174,6 +1252,49 @@
     }
 
     function setupProfileEvents(student) {
+      document.getElementById("profileSaveStudentBtn").addEventListener("click", async () => {
+        const name = document.getElementById("profileEditName").value.trim();
+        const email = document.getElementById("profileEditEmail").value.trim();
+        const phone = document.getElementById("profileEditPhone").value.trim();
+        const lessonsPurchased = Number(
+          document.getElementById("profileEditLessonsPurchased").value || 1
+        );
+        const message = document.getElementById("profileEditStudentMessage");
+
+        if (!name) {
+          message.textContent = "Enter a student name.";
+          return;
+        }
+
+        const { error } = await supabaseClient
+          .from("students")
+          .update({
+            name,
+            email,
+            phone,
+            lessons_purchased: Math.max(1, lessonsPurchased)
+          })
+          .eq("id", student.id)
+          .eq("coach_id", state.user.id);
+
+        if (error) {
+          message.textContent = error.message;
+          return;
+        }
+
+        message.textContent = "Student updated.";
+        await refresh();
+        state.selectedStudentId = student.id;
+        renderStudents();
+        renderStudentProfile();
+      });
+
+      document.querySelectorAll("[data-complete-lesson]").forEach(button => {
+        button.addEventListener("click", async () => {
+          await markLessonComplete(button.dataset.completeLesson);
+        });
+      });
+
       document.querySelectorAll("[data-delete-lesson]").forEach(button => {
         button.addEventListener("click", async () => {
           if (!confirm("Cancel this lesson?")) return;
@@ -1220,7 +1341,8 @@
             lesson_date: date,
             start_time: time,
             duration_minutes: duration,
-            title: "Coach Booked Lesson"
+            title: "Coach Booked Lesson",
+            status: LESSON_STATUS_SCHEDULED
           });
 
         if (error) {
@@ -1342,6 +1464,21 @@
       });
     }
 
+    async function markLessonComplete(lessonId) {
+      const { error } = await supabaseClient
+        .from("lessons")
+        .update({ status: LESSON_STATUS_COMPLETED })
+        .eq("id", lessonId)
+        .eq("coach_id", state.user.id);
+
+      if (error) {
+        showMessage(error.message);
+        return;
+      }
+
+      await refresh();
+    }
+
     function renderCalendar() {
       const grid = document.getElementById("calendarGrid");
       const date = state.currentDate;
@@ -1444,10 +1581,38 @@
               <p class="text-xs muted">
                 ${escapeHtml(lesson.start_time)} · ${lesson.duration_minutes} minutes
               </p>
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <span class="status ${
+                  getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
+                    ? "status-completed"
+                    : "status-booked"
+                }">
+                  ${getLessonStatus(lesson) === LESSON_STATUS_COMPLETED ? "Completed" : "Scheduled"}
+                </span>
+                ${
+                  getLessonStatus(lesson) === LESSON_STATUS_SCHEDULED
+                    ? `
+                      <button
+                        type="button"
+                        data-complete-day-lesson="${lesson.id}"
+                        class="text-xs text-teal-700 font-semibold"
+                      >
+                        Mark Complete
+                      </button>
+                    `
+                    : ""
+                }
+              </div>
             </div>
           `;
         })
         .join("");
+
+      container.querySelectorAll("[data-complete-day-lesson]").forEach(button => {
+        button.addEventListener("click", async () => {
+          await markLessonComplete(button.dataset.completeDayLesson);
+        });
+      });
     }
 
     function renderTimeline() {
@@ -1472,14 +1637,21 @@
 
         if (booked) {
           const student = getStudent(booked.student_id);
+          const status = getLessonStatus(booked);
 
           rows.push(`
-            <div class="timeline-row timeline-booked">
+            <div class="timeline-row ${status === LESSON_STATUS_COMPLETED ? "timeline-completed" : "timeline-booked"}">
               <div>
                 <span class="timeline-time">${minutesToLabel(time)}</span>
                 ${escapeHtml(student?.name || "Booked")}
               </div>
-              <span class="status status-booked">${booked.duration_minutes}m</span>
+              <span class="status ${
+                status === LESSON_STATUS_COMPLETED
+                  ? "status-completed"
+                  : "status-booked"
+              }">
+                ${status === LESSON_STATUS_COMPLETED ? "Completed" : `${booked.duration_minutes}m`}
+              </span>
             </div>
           `);
         } else if (open) {
@@ -1553,7 +1725,8 @@
           lesson_date: ymd(date),
           start_time: minutesToTime(startMinutes),
           duration_minutes: duration,
-          title: "Coach Booked Lesson"
+          title: "Coach Booked Lesson",
+          status: LESSON_STATUS_SCHEDULED
         });
 
       if (error) {
