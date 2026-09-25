@@ -543,9 +543,11 @@
     const SLOT_START_MIN = 7 * 60;
     const SLOT_END_MIN = 14 * 60;
     const SLOT_MINUTES = 30;
+    const APP_SETTINGS = {
+      REGULAR_LESSON_RATE_USD: 50
+    };
     const LESSON_STATUS_SCHEDULED = "scheduled";
     const LESSON_STATUS_COMPLETED = "completed";
-    const LESSON_VALUE = 50;
 
     const state = {
       user: null,
@@ -800,6 +802,13 @@
         : LESSON_STATUS_SCHEDULED;
     }
 
+    function canMarkLessonComplete(lesson) {
+      if (!lesson) return false;
+      if (getLessonStatus(lesson) !== LESSON_STATUS_SCHEDULED) return false;
+      const today = ymd(new Date());
+      return String(lesson.lesson_date || "") <= today;
+    }
+
     function getDayBlocks(dateKey) {
       return state.blocks.filter(block => block.block_date === dateKey);
     }
@@ -854,8 +863,8 @@
         const date = new Date(`${lesson.lesson_date}T00:00:00`);
         return date >= yearStart && date < tomorrowStart;
       });
-      const monthlyRevenue = mtdLessons.length * LESSON_VALUE;
-      const annualRevenue = ytdLessons.length * LESSON_VALUE;
+      const monthlyRevenue = mtdLessons.length * APP_SETTINGS.REGULAR_LESSON_RATE_USD;
+      const annualRevenue = ytdLessons.length * APP_SETTINGS.REGULAR_LESSON_RATE_USD;
 
       document.getElementById("dashboardStats").innerHTML = `
         <div class="border rounded-lg p-3">
@@ -1030,9 +1039,7 @@
         : completedLessonCountRaw;
       const progress = purchased
         ? Math.min(100, Math.round((completedForProgress / purchased) * 100))
-        : completedLessonCountRaw > 0
-          ? 100
-          : 0;
+        : 0;
 
       panel.innerHTML = `
         <div class="card p-5 mb-4">
@@ -1130,7 +1137,7 @@
 
                         <div class="text-right space-y-1">
                           ${
-                            getLessonStatus(lesson) === LESSON_STATUS_SCHEDULED
+                            canMarkLessonComplete(lesson)
                               ? `
                                 <button
                                   type="button"
@@ -1490,6 +1497,13 @@
     }
 
     async function markLessonComplete(lessonId) {
+      const lesson = state.lessons.find(item => item.id === lessonId);
+      if (!lesson) return;
+      if (!canMarkLessonComplete(lesson)) {
+        showMessage("Only lessons dated today or earlier can be marked complete.");
+        return;
+      }
+
       const { error } = await supabaseClient
         .from("lessons")
         .update({ status: LESSON_STATUS_COMPLETED })
@@ -1615,7 +1629,7 @@
                   ${getLessonStatus(lesson) === LESSON_STATUS_COMPLETED ? "Completed" : "Scheduled"}
                 </span>
                 ${
-                  getLessonStatus(lesson) === LESSON_STATUS_SCHEDULED
+                  canMarkLessonComplete(lesson)
                     ? `
                       <button
                         type="button"
