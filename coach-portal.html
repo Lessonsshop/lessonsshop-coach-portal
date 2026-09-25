@@ -682,6 +682,12 @@
       });
     }
 
+    function normalizeLessonCount(value, fallback = 1) {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return fallback;
+      return Math.max(1, Math.floor(parsed));
+    }
+
     function showSection(name) {
       Object.values(sections).forEach(section => {
         section.classList.add("hidden-section");
@@ -1006,7 +1012,10 @@
       const lessons = getStudentLessons(student.id);
       const notes = getStudentNotes(student.id);
       const media = getStudentMedia(student.id);
-      const purchased = Number(student.lessons_purchased || 0);
+      const purchasedRaw = Number(student.lessons_purchased);
+      const purchased = Number.isFinite(purchasedRaw)
+        ? Math.max(0, Math.floor(purchasedRaw))
+        : 0;
       const progress = purchased
         ? Math.min(100, Math.round((lessons.length / purchased) * 100))
         : 0;
@@ -1045,7 +1054,7 @@
               id="profileEditLessonsPurchased"
               type="number"
               min="1"
-              value="${Math.max(1, Number(student.lessons_purchased || 1))}"
+              value="${normalizeLessonCount(student.lessons_purchased, 1)}"
               class="border rounded-lg px-3 py-2 text-sm"
               placeholder="Lessons Purchased"
             />
@@ -1256,8 +1265,9 @@
         const name = document.getElementById("profileEditName").value.trim();
         const email = document.getElementById("profileEditEmail").value.trim();
         const phone = document.getElementById("profileEditPhone").value.trim();
-        const lessonsPurchased = Number(
-          document.getElementById("profileEditLessonsPurchased").value || 1
+        const lessonsPurchased = normalizeLessonCount(
+          document.getElementById("profileEditLessonsPurchased").value,
+          1
         );
         const message = document.getElementById("profileEditStudentMessage");
 
@@ -1272,7 +1282,7 @@
             name,
             email,
             phone,
-            lessons_purchased: Math.max(1, lessonsPurchased)
+            lessons_purchased: lessonsPurchased
           })
           .eq("id", student.id)
           .eq("coach_id", state.user.id);
@@ -1882,8 +1892,9 @@
       const name = document.getElementById("newStudentName").value.trim();
       const email = document.getElementById("newStudentEmail").value.trim();
       const phone = document.getElementById("newStudentPhone").value.trim();
-      const lessonsPurchased = Number(
-        document.getElementById("newStudentLessons").value || 4
+      const lessonsPurchased = normalizeLessonCount(
+        document.getElementById("newStudentLessons").value,
+        4
       );
       const message = document.getElementById("addStudentMsg");
 
@@ -1899,7 +1910,7 @@
           name,
           email,
           phone,
-          lessons_purchased: Math.max(1, lessonsPurchased)
+          lessons_purchased: lessonsPurchased
         })
         .select()
         .single();

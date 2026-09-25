@@ -8,6 +8,9 @@ where status is null or btrim(status) = '';
 alter table public.lessons
 alter column status set default 'scheduled';
 
+alter table public.lessons
+alter column status set not null;
+
 do $$
 begin
   if not exists (
