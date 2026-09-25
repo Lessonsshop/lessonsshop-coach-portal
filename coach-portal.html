@@ -1497,7 +1497,7 @@
     }
 
     async function markLessonComplete(lessonId) {
-      const lesson = state.lessons.find(item => item.id === lessonId);
+      const lesson = state.lessons.find(item => String(item.id) === String(lessonId));
       if (!lesson) return;
       if (!canMarkLessonComplete(lesson)) {
         showMessage("Only lessons dated today or earlier can be marked complete.");
