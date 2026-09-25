@@ -1024,12 +1024,13 @@
       const purchased = Number.isFinite(purchasedRaw)
         ? Math.max(0, Math.floor(purchasedRaw))
         : 0;
-      const completedLessonCount = purchased
+      const completedLessonCount = completedLessonCountRaw;
+      const completedForProgress = purchased
         ? Math.min(completedLessonCountRaw, purchased)
         : completedLessonCountRaw;
       const progress = purchased
-        ? Math.min(100, Math.round((completedLessonCount / purchased) * 100))
-        : completedLessonCount > 0
+        ? Math.min(100, Math.round((completedForProgress / purchased) * 100))
+        : completedLessonCountRaw > 0
           ? 100
           : 0;
 
@@ -1306,11 +1307,11 @@
           return;
         }
 
-        message.textContent = "Student updated.";
         await refresh();
         state.selectedStudentId = student.id;
         renderStudents();
         renderStudentProfile();
+        showMessage("Student updated.", "success");
       });
 
       document.querySelectorAll("[data-complete-lesson]").forEach(button => {
