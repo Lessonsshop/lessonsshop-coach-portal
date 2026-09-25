@@ -1665,7 +1665,7 @@
                   ? "status-completed"
                   : "status-booked"
               }">
-                ${status === LESSON_STATUS_COMPLETED ? "Completed" : `${booked.duration_minutes}m`}
+                ${status === LESSON_STATUS_COMPLETED ? `Completed · ${booked.duration_minutes}m` : `${booked.duration_minutes}m`}
               </span>
             </div>
           `);
