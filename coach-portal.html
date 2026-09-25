@@ -682,10 +682,10 @@
       });
     }
 
-    function normalizeLessonCount(value, fallback = 1) {
+    function normalizeLessonCount(value, fallback = 1, min = 1) {
       const parsed = Number(value);
       if (!Number.isFinite(parsed)) return fallback;
-      return Math.max(1, Math.floor(parsed));
+      return Math.max(min, Math.floor(parsed));
     }
 
     function showSection(name) {
@@ -1010,6 +1010,9 @@
       }
 
       const lessons = getStudentLessons(student.id);
+      const completedLessonCount = lessons.filter(
+        lesson => getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
+      ).length;
       const notes = getStudentNotes(student.id);
       const media = getStudentMedia(student.id);
       const purchasedRaw = Number(student.lessons_purchased);
@@ -1017,7 +1020,7 @@
         ? Math.max(0, Math.floor(purchasedRaw))
         : 0;
       const progress = purchased
-        ? Math.min(100, Math.round((lessons.length / purchased) * 100))
+        ? Math.min(100, Math.round((completedLessonCount / purchased) * 100))
         : 0;
 
       panel.innerHTML = `
@@ -1053,8 +1056,8 @@
             <input
               id="profileEditLessonsPurchased"
               type="number"
-              min="1"
-              value="${normalizeLessonCount(student.lessons_purchased, 1)}"
+              min="0"
+              value="${normalizeLessonCount(student.lessons_purchased, 0, 0)}"
               class="border rounded-lg px-3 py-2 text-sm"
               placeholder="Lessons Purchased"
             />
@@ -1074,7 +1077,7 @@
           <div class="mt-4">
             <div class="flex justify-between text-sm mb-1">
               <span>Lesson Progress</span>
-              <span>${lessons.length} of ${purchased}</span>
+              <span>${completedLessonCount} of ${purchased}</span>
             </div>
 
             <div class="progress-track">
@@ -1267,7 +1270,8 @@
         const phone = document.getElementById("profileEditPhone").value.trim();
         const lessonsPurchased = normalizeLessonCount(
           document.getElementById("profileEditLessonsPurchased").value,
-          1
+          normalizeLessonCount(student.lessons_purchased, 0, 0),
+          0
         );
         const message = document.getElementById("profileEditStudentMessage");
 
@@ -1894,7 +1898,8 @@
       const phone = document.getElementById("newStudentPhone").value.trim();
       const lessonsPurchased = normalizeLessonCount(
         document.getElementById("newStudentLessons").value,
-        4
+        4,
+        1
       );
       const message = document.getElementById("addStudentMsg");
 
