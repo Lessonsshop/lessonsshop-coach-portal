@@ -151,8 +151,8 @@
     }
 
     .timeline-completed {
-      background: #f0fdfa;
-      border-color: #99f6e4;
+      background: #ccfbf1;
+      border-color: #14b8a6;
     }
 
     .timeline-time {
@@ -838,16 +838,17 @@
       const now = new Date();
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const yearStart = new Date(now.getFullYear(), 0, 1);
+      const tomorrowStart = addDays(cloneDate(now), 1);
       const completedLessons = state.lessons.filter(
         lesson => getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
       );
       const mtdLessons = completedLessons.filter(lesson => {
         const date = new Date(`${lesson.lesson_date}T00:00:00`);
-        return date >= monthStart && date <= now;
+        return date >= monthStart && date < tomorrowStart;
       });
       const ytdLessons = completedLessons.filter(lesson => {
         const date = new Date(`${lesson.lesson_date}T00:00:00`);
-        return date >= yearStart && date <= now;
+        return date >= yearStart && date < tomorrowStart;
       });
       const monthlyRevenue = mtdLessons.length * LESSON_VALUE;
       const annualRevenue = ytdLessons.length * LESSON_VALUE;
@@ -1284,8 +1285,8 @@
           .from("students")
           .update({
             name,
-            email,
-            phone,
+            email: email || null,
+            phone: phone || null,
             lessons_purchased: lessonsPurchased
           })
           .eq("id", student.id)
@@ -1914,8 +1915,8 @@
         .insert({
           coach_id: state.user.id,
           name,
-          email,
-          phone,
+          email: email || null,
+          phone: phone || null,
           lessons_purchased: lessonsPurchased
         })
         .select()
