@@ -3,7 +3,9 @@ add column if not exists status text;
 
 update public.lessons
 set status = 'scheduled'
-where status is null or btrim(status) = '';
+where status is null
+   or btrim(status) = ''
+   or status not in ('scheduled', 'completed');
 
 alter table public.lessons
 alter column status set default 'scheduled';

@@ -1658,6 +1658,7 @@
               <div>
                 <span class="timeline-time">${minutesToLabel(time)}</span>
                 ${escapeHtml(student?.name || "Booked")}
+                ${status === LESSON_STATUS_COMPLETED ? " · Completed" : ""}
               </div>
               <span class="status ${
                 status === LESSON_STATUS_COMPLETED
