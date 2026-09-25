@@ -1,3 +1,5 @@
+begin;
+
 alter table public.lessons
 add column if not exists status text;
 
@@ -19,3 +21,5 @@ drop constraint if exists lessons_status_check;
 alter table public.lessons
 add constraint lessons_status_check
 check (status in ('scheduled', 'completed'));
+
+commit;

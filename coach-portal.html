@@ -805,8 +805,16 @@
     function canMarkLessonComplete(lesson) {
       if (!lesson) return false;
       if (getLessonStatus(lesson) !== LESSON_STATUS_SCHEDULED) return false;
-      const today = ymd(new Date());
-      return String(lesson.lesson_date || "") <= today;
+      const now = new Date();
+      const today = ymd(now);
+      const lessonDate = String(lesson.lesson_date || "");
+      if (!lessonDate) return false;
+      if (lessonDate < today) return true;
+      if (lessonDate > today) return false;
+
+      const lessonDateTime = new Date(`${lessonDate}T${lesson.start_time || "00:00"}:00`);
+      if (Number.isNaN(lessonDateTime.getTime())) return false;
+      return lessonDateTime <= now;
     }
 
     function getDayBlocks(dateKey) {
