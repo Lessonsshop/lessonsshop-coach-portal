@@ -838,7 +838,11 @@
       const now = new Date();
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const yearStart = new Date(now.getFullYear(), 0, 1);
-      const tomorrowStart = addDays(cloneDate(now), 1);
+      const tomorrowStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1
+      );
       const completedLessons = state.lessons.filter(
         lesson => getLessonStatus(lesson) === LESSON_STATUS_COMPLETED
       );
@@ -1025,7 +1029,9 @@
         : completedLessonCountRaw;
       const progress = purchased
         ? Math.min(100, Math.round((completedLessonCount / purchased) * 100))
-        : 0;
+        : completedLessonCount > 0
+          ? 100
+          : 0;
 
       panel.innerHTML = `
         <div class="card p-5 mb-4">
